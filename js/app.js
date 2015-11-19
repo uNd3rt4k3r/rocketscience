@@ -58,12 +58,16 @@ function initialize_map() {
      */
 }
 
+var url = "http://192.168.0.196:8082/api/organisationUnits?format=json";
 function getData(){
-  //  var webApiURL = "http://cors.io/?u=https://apps.dhis2.org/demo/api/organisationUnits?format=json";
-    var webApiURL = "http://Play.dhis2.org/api/organisationUnits?format=json";
+    var webApiURL = "http://localhost:8082/api/organisationUnits?format=json";
+    //var webApiURL = url;
     $.getJSON(webApiURL, function(json) {
         //$('#results').append(json);
         console.log(json);
         //alert(json);
     });
+
 }
+
+
