@@ -58,16 +58,25 @@ function initialize_map() {
      */
 }
 
-var url = "http://192.168.0.196:8082/api/organisationUnits?format=json";
+//var url = "http://192.168.0.196:8082/api/organisationUnits?format=json";
 function getData(){
-    var webApiURL = "http://localhost:8082/api/organisationUnits?format=json";
-    //var webApiURL = url;
+    /*var webApiURL = "http://localhost:8082/api/organisationUnits?format=json";
+    var webApiURL = url;
     $.getJSON(webApiURL, function(json) {
         //$('#results').append(json);
         console.log(json);
         //alert(json);
     });
+    console.log("boya");*/
 
 }
 
-
+var auth = btoa('admin:district');
+$.ajax({
+    type: 'GET',
+    headers: {"Authorization": "Basic "+auth},
+    //params: { j_username: "admin", j_password: "district" },
+    url: 'http://localhost:8082/api/organisationUnits?format=json',
+    success   : function(data) { console.log(data);},
+    error: function(xhr) {console.log(xhr)}
+});
