@@ -11,5 +11,9 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         ng.bootstrap(AppComponent);
+        initialize_map();
     });
 })();
+
+
+

@@ -83,3 +83,7 @@ function getData(){
     });
 }
 
+$(document).ready(function() {
+    initialize_map();
+    alert("hello");
+});
