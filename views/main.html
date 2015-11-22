@@ -1,64 +1,111 @@
 <div class="container">
     <h1>Rocketscience <i class="fa fa-rocket"></i></h1>
     <hr/>
-
     <div class="row">
         <div class="col-md-6">
-            <h3>Map</h3>
-            <div class="form-inline">
+            <div class="module">
+                <h3>Map</h3>
+
                 <div class="form-group">
                     <label for="lat">Latitude</label>
-                    <input type="text" class="form-control" id="lat" placeholder="Latitude">
+                    <input type="text" class="form-control" id="lat" placeholder="Latitude" disabled>
                 </div>
                 <div class="form-group">
                     <label for="lon">Longitude</label>
-                    <input type="text" class="form-control" id="lon" placeholder="Longitude">
+                    <input type="text" class="form-control" id="lon" placeholder="Longitude" disabled>
                 </div>
-                <button type="submit" class="btn btn-default">Do Something Awesome</button>
+                <div id="map-canvas" class="container map"></div>
             </div>
-            <div id="map-canvas" class="container map"></div> <!-- MAP -->
+        </div>
+        <!-- MAP -->
+        <div class="col-md-6">
+            <div class="module">
+                <h3>Options</h3>
+
+                <div class="module">
+                    <h4>Actions</h4>
+
+                    <div class="form-inline">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-map-pin"></i> Find me</button>
+                        <button type="submit" class="btn btn-default"><i class="fa fa-plus"></i> Add</button>
+                    </div>
+                </div>
+                <div class="module">
+                    <h4>Border options</h4>
+
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option value="1">None</option>
+                            <option value="2">Something</option>
+                            <option value="3">Something else</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="module">
+                    <h4>Filter results</h4>
+
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option value="1">Facility</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block btn-default"><i class="fa fa-search"></i> Get results
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="module">
+                <h3>Results</h3>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="search" placeholder="Search for Facility...">
+                </div>
+                <a href="#" class="link">Approved School CPH</a>
+                <br>
+                <a href="#" class="link">Arab Clinic</a>
+                <br>
+                <a href="#" class="link">Barbara CHC</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="module">
+                <h3>DHIS2: WebAPI Test</h3>
+
+                <div class="alert alert-warning">
+                    To get this to work you have to run this in CMD or Terminal
+                    <ul>
+                        <li><b>MAC:</b> <i>open -a Google\ Chrome --args --disable-web-security
+                            -–allow-file-access-from-files</i></li>
+                        <li><b>WINDOWS:</b> <i>C:\PathTo\Chrome.exe –allow-file-access-from-files
+                            -disable-web-security</i></li>
+                    </ul>
+                    <p>Then the web browser can access <b>https://play.dhis2.org/demo/api/organisationUnits.json</b>
+                        from AJAX REST Call</p>
+                </div>
+                <button type="submit" class="btn btn-default" onclick="getData();">Get DHIS2 json</button>
+                <div id="results"></div>
+            </div>
         </div>
         <div class="col-md-6">
-            <!-- TODO: CONTROLLS -->
-            <div>Menu
-                <div>
-                    Actions
-                    <button type="submit" class="btn btn-default" onclick="foo();"><i class="fa fa-map-pin"></i> Find me</button>
-                    <button type="submit" class="btn btn-default" onclick="foo();"><i class="fa fa-plus"></i> Add new</button>
+            <div class="module">
+                <h3>AngularJS: Test</h3>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="AngularTest" placeholder="Some text..."
+                           ng-model="SomeText">
                 </div>
-
-                <div>
-                    Border options
-                    <select class="form-control">
-                        <option>None</option>
-                    </select>
-                </div>
-
-                <div>
-                    Filter results
-                    <select class="form-control">
-                        <option>Faculty</option>
-                    </select>
-                </div>
-            </div>
-
-
-            <div>
-                Results
+                <p>{{SomeText}} </p>
             </div>
         </div>
     </div>
-
-
-
-    <h3>Data</h3>
-    <div class="alert alert-danger">
-        <i>TODO: GET some data from DHIS2 <b>https://apps.dhis2.org/demo/api/organisationUnits.json</b></i>
-    </div>
-    <button type="submit" class="btn btn-default" onclick="getData();">Get DHIS2 json</button>
-    <div id="results"></div>
-
 </div>
-
-
 

@@ -1,9 +1,39 @@
+body {
+    background-color: #fafafa;
+}
+/*=================================================================
+                                SPECIFIC THINGS
+===================================================================*/
+.module {
+    padding: 15px 30px 30px;
+    background: #FFF;
+    border: 1px solid #EFEFEF;
+    border-radius: 2px;
+    margin-bottom:10px;
+}
+
+.fa-rocket {
+    color: #375474;
+}
+
 #map-canvas {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
     width: 100%;
-    height:400px;
-    margin-top:20px;
+    height: 400px;
+    margin-top: 20px;
 }
+
+.link {
+    color: #5C97BF;
+    line-height: inherit;
+    text-decoration: none;
+}
+
+.link:hover{
+    cursor:pointer;
+    color: #2ba6cb;
+}
+
