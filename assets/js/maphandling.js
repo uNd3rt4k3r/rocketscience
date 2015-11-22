@@ -23,6 +23,8 @@ function setLocation(position) {
 
 var map;
 function initialize_map() {
+
+
     //Test data
     var myLatlng = new google.maps.LatLng(-34.397, 150.644);
 
@@ -62,6 +64,8 @@ function initialize_map() {
      */
 }
 
+
+
 //var url = "http://192.168.0.196:8082/api/organisationUnits?format=json";
 function getData(){
     /*var webApiURL = "http://localhost:8082/api/organisationUnits?format=json";
@@ -83,7 +87,7 @@ function getData(){
     });
 }
 
-$(document).ready(function() {
-    initialize_map();
-    alert("hello");
-});
+//$(document).ready(function() {
+//    initialize_map();
+//    alert("hello");
+//});
