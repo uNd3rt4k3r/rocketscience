@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="rocketscienceApp">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,14 +7,11 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Rocketscience</title>
 
-        <!-- AngularJS 2 -->
-        <script src="node_modules/angular2/bundles/angular2.sfx.dev.js"></script>
-        <script src="app/app.js"></script>
-
         <!-- Bootstrap -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
         <link href="assets/css/app.css" rel="stylesheet">
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -32,19 +29,22 @@
 
     </head>
     <body>
-        <my-app>
+        <div ng-view></div>
+        {{1+2}}
+        <!-- AngularJS -->
+        <script src="bower_components/angular/angular.js"></script>
+        <!--script src="bower_components/bootstrap/dist/js/bootstrap.js"></script-->
+        <script src="bower_components/angular-animate.js"></script>
+        <script src="bower_components/angular-cookies.js"></script>
+        <script src="bower_components/angular-resource.js"></script>
+        <script src="bower_components/angular-route.js"></script>
+        <script src="bower_components/angular-sanitize.js"></script>
+        <script src="bower_components/angular-touch.js"></script>
 
-        </my-app>
-
-
-
-        <!--script>
-            $(document).ready(function() {
-                initialize_map();
-                alert("hello");
-            });
-        </script-->
+        <script src="modules/app.js"></script>
+        <script src="modules/controllers/mainCtrl.js"></script>
     </body>
+
 
 
 
