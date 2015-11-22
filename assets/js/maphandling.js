@@ -23,8 +23,6 @@ function setLocation(position) {
 
 var map;
 function initialize_map() {
-
-
     //Test data
     var myLatlng = new google.maps.LatLng(-34.397, 150.644);
 
@@ -68,26 +66,35 @@ function initialize_map() {
 
 //var url = "http://192.168.0.196:8082/api/organisationUnits?format=json";
 function getData(){
-    /*var webApiURL = "http://localhost:8082/api/organisationUnits?format=json";
-     var webApiURL = url;
-     $.getJSON(webApiURL, function(json) {
-     //$('#results').append(json);
+    //  var webApiURL = "http://cors.io/?u=https://apps.dhis2.org/demo/api/organisationUnits?format=json";
+    // var webApiURL = "http://Play.dhis2.org/api/organisationUnits?format=json";
+    var url = "https://play.dhis2.org/demo/api/organisationUnits.json";
+    $('#results').append("<h4>Results</h4>");
+    /*
+     $.get(url)
+     .success(someData)
+     .error(console.error);
+     */
+    /*
+     $.getJSON(url, function(json) {
+     $('#results').append(json);
      console.log(json);
      //alert(json);
      });
-     console.log("boya");*/
+     */
+
     var auth = btoa('admin:district');
     $.ajax({
         type: 'GET',
         headers: {"Authorization": "Basic "+auth},
-        //params: { j_username: "admin", j_password: "district" },
-        url: 'http://localhost:8082/api/organisationUnits?format=json',
-        success   : function(data) { console.log(data);},
+        // params: { j_username: "admin", j_password: "district" },
+        url: 'https://play.dhis2.org/demo/api/organisationUnits.json',
+        success   : function(data) { showData(data);},
         error: function(xhr) {console.log(xhr)}
     });
+
 }
 
-//$(document).ready(function() {
-//    initialize_map();
-//    alert("hello");
-//});
+function showData(data) {
+    $('#results').append("<p>" + JSON.stringify(data, null, 2)+"</p>");
+}
