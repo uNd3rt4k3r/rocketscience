@@ -30,6 +30,7 @@ function initialize_map() {
     //Test data
     var myLatlng = new google.maps.LatLng(-34.397, 150.644);
     draw_map(myLatlng);
+    getOrgUnits();
 }
 
 function draw_map(myLatlng) {
@@ -82,16 +83,13 @@ function showData(data) {
 function editCordinates(data, lat, long) {
     var DHIS2Url = data.href;
     DHIS2Url += '/coordinates';
-
-    data.coordinates = lat +","+ long;
-
+    data.coordinates = lat + "," + long;
     console.log(data);
-
     var auth = btoa('admin:district');
 
     $.ajax({
         url: DHIS2Url,
-        beforeSend: function(xhr) {
+        beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", "Basic " + auth);
         },
         type: 'PUT',
@@ -102,8 +100,37 @@ function editCordinates(data, lat, long) {
         success: function (data) {
             console.log(data);
         },
-        error: function(){
+        error: function () {
             console.log("Cannot put data");
         }
     });
 }
+
+function getOrgUnits() {
+    var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits.json";
+    var auth = btoa('admin:district');
+    $.ajax({
+        type: 'GET',
+        headers: {"Authorization": "Basic " + auth},
+        url: DHIS2Url,
+        success: function (data) {
+            showSearch(data);
+        }, error: function (xhr) {
+            console.log(xhr)
+        }
+    });
+}
+function showSearch(data) {
+    var OrgUnitsJSON = data.organisationUnits;
+    var searchString = "";
+    for (var i = 0; i < OrgUnitsJSON.length; i++) {
+        var orgUnit = OrgUnitsJSON[i];
+        searchString += "<a href='" + orgUnit.href + "?format=json' class='link'>";
+        searchString += orgUnit.name;
+        searchString += "</a>";
+        searchString += "<br>";
+    }
+    $('#searchresults').append(searchString);
+}
+
+
