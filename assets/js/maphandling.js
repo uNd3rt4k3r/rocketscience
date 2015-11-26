@@ -107,6 +107,7 @@ function editCordinates(data, lat, long) {
 }
 
 function getOrgUnits() {
+    //paging=false
     var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits.json";
     var auth = btoa('admin:district');
     $.ajax({
@@ -120,6 +121,7 @@ function getOrgUnits() {
         }
     });
 }
+
 function showSearch(data) {
     var OrgUnitsJSON = data.organisationUnits;
     var searchString = "";
@@ -130,7 +132,47 @@ function showSearch(data) {
         searchString += "</a>";
         searchString += "<br>";
     }
-    $('#searchresults').append(searchString);
+
+
+    $('#searchresults').html(searchString);
 }
 
+function liveSearch(needle){
+    var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits.json?filter=name:like:"+needle;
+    var auth = btoa('admin:district');
+    $.ajax({
+        type: 'GET',
+        headers: {"Authorization": "Basic " + auth},
+        url: DHIS2Url,
+        success: function (data) {
+            showSearch(data);
+        }, error: function (xhr) {
+            console.log(xhr)
+        }
+    });
+}
+
+function addNewUnit(){
+    var name = $('#newUnitName').val();
+    var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits";
+
+    var auth = btoa('admin:district');
+    $.ajax({
+        url: DHIS2Url,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + auth);
+        },
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        processData: true,
+        data: '{"name":"'+name+'"}',
+        success: function (data) {
+            console.log(data);
+        },
+        error: function () {
+            console.log("Cannot put data");
+        }
+    });
+}
 
