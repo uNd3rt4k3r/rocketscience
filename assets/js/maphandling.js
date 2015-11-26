@@ -28,8 +28,14 @@ function setLocation(position) {
 var map;
 function initialize_map() {
     //Test data
-    var myLatlng = new google.maps.LatLng(-34.397, 150.644);
+    var myLatlng = new google.maps.LatLng(3.61,-20.28);
     draw_map(myLatlng);
+
+    for (data in getData()) {
+        if (data.hasOwnProperty('coordinates')) {
+            add_marker(data.coordinates);
+        }
+    }
 }
 
 function draw_map(myLatlng) {
@@ -41,23 +47,30 @@ function draw_map(myLatlng) {
     };
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-    });
+    //var marker = new google.maps.Marker({
+    //    position: myLatlng,
+    //    map: map
+    //});
 
-    setLocation(myLatlng);
+    //setLocation(myLatlng);
     //Map click listener
     google.maps.event.addListener(map, 'click', function (event) {
-        marker = new google.maps.Marker({position: event.latLng, map: map});
-        setLocation(event.latLng);
+        //marker = new google.maps.Marker({position: event.latLng, map: map});
+        //setLocation(event.latLng);
     });
 
 }
 
+function add_marker(myLatlng){
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map
+    });
+}
+
 function getData() {
     var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits";
-    $('#results').append("<h4>Results</h4>");
+    //$('#results').append("<h4>Results</h4>");
 
     var auth = btoa('admin:district');
     $.ajax({
@@ -65,7 +78,9 @@ function getData() {
         headers: {"Authorization": "Basic " + auth},
         url: DHIS2Url,
         success: function (data) {
-            showData(data);
+            console.log(data);
+            return data;
+
         },
         error: function (xhr) {
             console.log(xhr)
