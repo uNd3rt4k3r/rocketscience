@@ -56,7 +56,7 @@ function draw_map(myLatlng) {
 }
 
 function getData() {
-    var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits.json";
+    var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits";
     $('#results').append("<h4>Results</h4>");
 
     var auth = btoa('admin:district');
@@ -71,8 +71,39 @@ function getData() {
             console.log(xhr)
         }
     });
+
 }
 
 function showData(data) {
     $('#results').append("<p>" + JSON.stringify(data, null, 2) + "</p>");
+}
+
+
+function editCordinates(data, lat, long) {
+    var DHIS2Url = data.href;
+    DHIS2Url += '/coordinates';
+
+    data.coordinates = lat +","+ long;
+
+    console.log(data);
+
+    var auth = btoa('admin:district');
+
+    $.ajax({
+        url: DHIS2Url,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + auth);
+        },
+        type: 'PUT',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        processData: true,
+        data: JSON.stringify(data),
+        success: function (data) {
+            console.log(data);
+        },
+        error: function(){
+            console.log("Cannot put data");
+        }
+    });
 }
