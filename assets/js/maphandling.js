@@ -28,22 +28,71 @@ function setLocation(position) {
 var map;
 function initialize_map() {
     //Test data
-    var myLatlng = new google.maps.LatLng(3.61,-20.28);
+    var myLatlng = new google.maps.LatLng(3.61,15.28);
     draw_map(myLatlng);
 
-    for (data in getData()) {
-        if (data.hasOwnProperty('coordinates')) {
-            add_marker(data.coordinates);
+    var allOrgUnits = getAllOrgUnit();
+    console.log(allOrgUnits);
+    /*var numbOrgUnits = 0;
+    while (allOrgUnits[numbOrgUnits]) {
+        numbOrgUnits++;
+    }*/
+
+    for (var index in allOrgUnits) {
+        //.hasOwnProperty('coordinates')
+        var orgUnit = getOrgUnit(allOrgUnits[index].href);
+
+        if (orgUnit.hasOwnProperty('coordinates')) {
+            if (orgUnit.coordinates != null && orgUnit.coordinates != "") {
+                var coordinate = orgUnit.coordinates.replace("[","");
+                coordinate = coordinate.replace("]","");
+                console.log(coordinate);
+                var coordinates = coordinate.split(",");
+                var lat = coordinates[0];
+                var lng = coordinates[1];
+                var myLatLng = {lat: parseInt(lng), lng: parseInt(lat)};
+                console.log(myLatLng);
+                add_marker(myLatLng,orgUnit.name);
+            }
+
         }
+
     }
+
+    /*for (var i = 0; i < numbOrgUnits; i++) {
+        if (allOrgUnits[i].hasOwnProperty('coordinates')) {
+            add_marker(allOrgUnits[i].coordinates);
+        }
+    }*/
     getOrgUnits();
+}
+
+function getOrgUnit(href) {
+    var DHIS2Url = href;
+    //$('#results').append("<h4>Results</h4>");
+
+    var auth = btoa('admin:district');
+    var result;
+    $.ajax({
+        type: 'GET',
+        headers: {"Authorization": "Basic " + auth},
+        url: DHIS2Url,
+        async: false, //TODO: Maybe remove
+        success: function (data) {
+            result = data;
+        },
+        error: function (xhr) {
+            console.log(xhr)
+        }
+    });
+    return result;
 }
 
 function draw_map(myLatlng) {
     var mapOptions = {
         center: myLatlng,
         scrollwheel: false,
-        zoom: 8,
+        zoom: 2,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -62,31 +111,36 @@ function draw_map(myLatlng) {
 
 }
 
-function add_marker(myLatlng){
+function add_marker(myLatlng,title){
     var marker = new google.maps.Marker({
         position: myLatlng,
         map: map
     });
 }
 
-function getData() {
+function getAllOrgUnit() {
     var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits";
     //$('#results').append("<h4>Results</h4>");
 
     var auth = btoa('admin:district');
+    var result;
     $.ajax({
         type: 'GET',
         headers: {"Authorization": "Basic " + auth},
         url: DHIS2Url,
+        async: false, //TODO: Maybe remove
         success: function (data) {
+            console.log(data.organisationUnits);
             console.log(data);
-            return data;
+            result = data.organisationUnits;
 
         },
         error: function (xhr) {
             console.log(xhr)
         }
     });
+
+    return result;
 
 }
 
@@ -135,6 +189,7 @@ function getOrgUnits() {
             console.log(xhr)
         }
     });
+
 }
 
 function showSearch(data) {
