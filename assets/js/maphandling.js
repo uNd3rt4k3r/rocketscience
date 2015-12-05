@@ -52,7 +52,7 @@ function initialize_map() {
                 var lng = coordinates[1];
                 var myLatLng = {lat: parseInt(lat), lng: parseInt(lng)};
                 console.log(myLatLng);
-                add_marker(myLatLng,orgUnit.name);
+                add_marker(myLatLng,orgUnit);
             }
 
         }
@@ -111,18 +111,39 @@ function draw_map(myLatlng) {
 }
 
 var markers = [];
-function add_marker(myLatlng,title){
+var curInfowindow = "";
+function add_marker(myLatlng,orgUnit){
     var marker = new google.maps.Marker({
         position: myLatlng,
         map: map,
-        title: title,
-        type: "rect"
+        title: orgUnit.name
     });
     marker.setClickable(true);
     marker.setAnimation(google.maps.Animation.DROP);
-    google.maps.event.addListener(marker, 'click', function (event) {
-        alert(title);
+
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">'+orgUnit.name+'</h1>'+
+        '<div id="bodyContent">'+
+        '<p><b></b>' +
+        'About text?</p>'+
+        '<p><a href="'+orgUnit.href+'">'+
+        orgUnit.href +'</a> '+
+        'ID: ' + orgUnit.id + '.</p>'+
+        '</div>'+
+        '</div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
     });
+
+    google.maps.event.addListener(marker, 'click', function (event) {
+        if (curInfowindow != "") {curInfowindow.close();}
+        infowindow.open(map, marker);
+        curInfowindow = infowindow;
+    });
+
 
     markers.push(marker);
 }
