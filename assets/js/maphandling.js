@@ -110,7 +110,7 @@ function draw_map(myLatlng) {
     });
 }
 
-var markers = [];
+//var markers = [];
 var curInfowindow = "";
 function add_marker(myLatlng,orgUnit){
     var marker = new google.maps.Marker({
@@ -140,9 +140,14 @@ function add_marker(myLatlng,orgUnit){
     });
 
     google.maps.event.addListener(marker, 'click', function (event) {
-        if (curInfowindow != "") {curInfowindow.close();}
+        console.log(curInfowindow);
+        if (curInfowindow != "") {
+            curInfowindow.close();
+        }
+
         if (curInfowindow == infowindow) {
             infowindow.close();
+            curInfowindow = "";
         }
         else {
             infowindow.open(map, marker);
@@ -156,22 +161,25 @@ function add_marker(myLatlng,orgUnit){
 
         }
 
+
+
     });
 
     google.maps.event.addListener(marker,'drag',function(event) {
-        console.log("Draging: "+ orgUnit.name);
+        //console.log("Draging: "+ orgUnit.name);
         //console.log(event.latLng.lat());
         //console.log(event.latLng.lng());
     });
 
     google.maps.event.addListener(marker,'dragend',function(event) {
-        console.log("Drag stop");
+        //console.log("Drag stop");
         editCordinates(orgUnit,event.latLng.lat(), event.latLng.lng());
         console.log("New coordinates saved");
+        marker.setClickable(true);
     });
 
 
-    markers.push(marker);
+    //markers.push(marker);
 }
 
 function getAllOrgUnit() {
@@ -234,7 +242,7 @@ function saveOrgUnit(orgUnit, href) {
             console.log(data);
         },
         error: function () {
-            console.log("Cannot put data"); 
+            console.log("Cannot put data");
         }
     });
 }
