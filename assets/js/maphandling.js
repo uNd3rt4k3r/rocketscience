@@ -120,6 +120,7 @@ function add_marker(myLatlng,orgUnit){
     });
     marker.setClickable(true);
     marker.setAnimation(google.maps.Animation.DROP);
+    marker.setDraggable(true);
 
     var contentString = '<div id="content">'+
         '<div id="siteNotice">'+
@@ -140,8 +141,27 @@ function add_marker(myLatlng,orgUnit){
 
     google.maps.event.addListener(marker, 'click', function (event) {
         if (curInfowindow != "") {curInfowindow.close();}
-        infowindow.open(map, marker);
-        curInfowindow = infowindow;
+        if (curInfowindow == infowindow) {
+            infowindow.close();
+        }
+        else {
+            infowindow.open(map, marker);
+            curInfowindow = infowindow;
+            map.setZoom(6);
+        }
+
+    });
+
+    google.maps.event.addListener(marker,'drag',function(event) {
+        console.log("Draging: "+ orgUnit.name);
+        console.log(event.latLng.lat());
+        console.log(event.latLng.lng());
+    });
+
+    google.maps.event.addListener(marker,'dragend',function(event) {
+        console.log("Drag stop"); //TODO: Save new location event
+        editCordinates(orgUnit,event.latLng.lat(), event.latLng.lng());
+        console.log("New coordinates saved");
     });
 
 
