@@ -50,7 +50,7 @@ function initialize_map() {
                 var coordinates = coordinate.split(",");
                 var lat = coordinates[0];
                 var lng = coordinates[1];
-                var myLatLng = {lat: parseInt(lng), lng: parseInt(lat)};
+                var myLatLng = {lat: parseInt(lat), lng: parseInt(lng)};
                 console.log(myLatLng);
                 add_marker(myLatLng,orgUnit.name);
             }
@@ -108,14 +108,21 @@ function draw_map(myLatlng) {
         //marker = new google.maps.Marker({position: event.latLng, map: map});
         //setLocation(event.latLng);
     });
-
 }
 
+var markers = [];
 function add_marker(myLatlng,title){
     var marker = new google.maps.Marker({
         position: myLatlng,
         map: map
     });
+    marker.setClickable(true);
+
+    google.maps.event.addListener(marker, 'click', function (event) {
+        alert(title);
+    });
+
+    markers.push(marker);
 }
 
 function getAllOrgUnit() {
