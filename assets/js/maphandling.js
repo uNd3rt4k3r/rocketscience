@@ -114,10 +114,12 @@ var markers = [];
 function add_marker(myLatlng,title){
     var marker = new google.maps.Marker({
         position: myLatlng,
-        map: map
+        map: map,
+        title: title,
+        type: "rect"
     });
     marker.setClickable(true);
-
+    marker.setAnimation(google.maps.Animation.DROP);
     google.maps.event.addListener(marker, 'click', function (event) {
         alert(title);
     });
