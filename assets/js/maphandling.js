@@ -125,10 +125,10 @@ function add_marker(myLatlng,orgUnit){
     var contentString = '<div id="content">'+
         '<div id="siteNotice">'+
         '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">'+orgUnit.name+'</h1>'+
+        '<h1 id="firstHeading" class="firstHeading"><input type="text" id="txt'+orgUnit.id+'" value="'+orgUnit.name+'"/></h1>'+
         '<div id="bodyContent">'+
         '<p><b></b>' +
-        'About text?</p>'+
+        //'About text?</p>'+
         '<p><a href="'+orgUnit.href+'">'+
         orgUnit.href +'</a> '+
         'ID: ' + orgUnit.id + '.</p>'+
@@ -148,18 +148,24 @@ function add_marker(myLatlng,orgUnit){
             infowindow.open(map, marker);
             curInfowindow = infowindow;
             map.setZoom(6);
+
+            var inputBox = document.getElementById('txt'+orgUnit.id);
+            inputBox.addEventListener("input", function() {
+                editName(orgUnit, inputBox.value);
+            });
+
         }
 
     });
 
     google.maps.event.addListener(marker,'drag',function(event) {
         console.log("Draging: "+ orgUnit.name);
-        console.log(event.latLng.lat());
-        console.log(event.latLng.lng());
+        //console.log(event.latLng.lat());
+        //console.log(event.latLng.lng());
     });
 
     google.maps.event.addListener(marker,'dragend',function(event) {
-        console.log("Drag stop"); //TODO: Save new location event
+        console.log("Drag stop");
         editCordinates(orgUnit,event.latLng.lat(), event.latLng.lng());
         console.log("New coordinates saved");
     });
@@ -198,16 +204,24 @@ function showData(data) {
     $('#results').append("<p>" + JSON.stringify(data, null, 2) + "</p>");
 }
 
+function editName(orgUnit, newName) {
+    orgUnit.name = newName;
+    saveOrgUnit(orgUnit, orgUnit.href)
+}
 
 function editCordinates(data, lat, long) {
     var DHIS2Url = data.href;
     DHIS2Url += '/coordinates';
     data.coordinates = lat + "," + long;
     console.log(data);
+    saveOrgUnit(data,DHIS2Url);
+}
+
+function saveOrgUnit(orgUnit, href) {
     var auth = btoa('admin:district');
 
     $.ajax({
-        url: DHIS2Url,
+        url: href,
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", "Basic " + auth);
         },
@@ -215,12 +229,12 @@ function editCordinates(data, lat, long) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         processData: true,
-        data: JSON.stringify(data),
+        data: JSON.stringify(orgUnit),
         success: function (data) {
             console.log(data);
         },
         error: function () {
-            console.log("Cannot put data");
+            console.log("Cannot put data"); 
         }
     });
 }
