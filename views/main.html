@@ -49,6 +49,8 @@
                     <div class="form-group">
                         <select class="form-control">
                             <option value="1">Facility</option>
+                            <option value="2">Organization Unit?</option>
+                            <option value="3">Both?</option>
                         </select>
                     </div>
                 </div>
@@ -68,7 +70,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="newUnitName"/>
                 </div>
-                <button class="btn btn-block btn-default" onclick="addNewUnit();">Add Unit</button>
+                <button class="btn btn-block btn-default" onclick="addNewUnit($('#newUnitName').val());">Add Unit</button>
 
 
                 <h3>Results</h3>

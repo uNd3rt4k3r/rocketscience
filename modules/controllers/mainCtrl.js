@@ -9,7 +9,6 @@ angular.module('rocketscienceApp')
             return route === $location.path();
         };
 
-        $scope.foo = "faa";
 
         $scope.isNotActive = function(route) {
             //console.log("parm:" + route + " location: " + $location.path());

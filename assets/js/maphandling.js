@@ -105,6 +105,27 @@ function draw_map(myLatlng) {
     //setLocation(myLatlng);
     //Map click listener
     google.maps.event.addListener(map, 'click', function (event) {
+        //TODO: add new orgunit/facility ?
+        var id = addNewUnit("New OrgUnit");
+        console.log("1: " + id);
+        var newOrgUnit = getOrgUnitById(id);
+        console.log("2: " + newOrgUnit);
+        editCordinates(newOrgUnit, event.latLng.lat(), event.latLng.lng());
+
+        var marker = add_marker(event.latLng, newOrgUnit);
+        console.log("3: " + marker);
+
+        marker.infowindow.open(map, marker);
+        curInfowindow = marker.infowindow;
+        map.setZoom(6);
+
+        var inputBox = document.getElementById('txt'+id);
+        inputBox.addEventListener("input", function() {
+            editName(newOrgUnit, inputBox.value);
+        });
+        inputBox.focus();
+
+
         //marker = new google.maps.Marker({position: event.latLng, map: map});
         //setLocation(event.latLng);
     });
@@ -165,6 +186,9 @@ function add_marker(myLatlng,orgUnit){
 
     });
 
+    marker.infowindow = infowindow;
+
+
     google.maps.event.addListener(marker,'drag',function(event) {
         //console.log("Draging: "+ orgUnit.name);
         //console.log(event.latLng.lat());
@@ -178,9 +202,10 @@ function add_marker(myLatlng,orgUnit){
         marker.setClickable(true);
     });
 
-
+    return marker;
     //markers.push(marker);
 }
+
 
 function getAllOrgUnit() {
     var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits";
@@ -206,6 +231,29 @@ function getAllOrgUnit() {
 
     return result;
 
+}
+
+function getOrgUnitById(id) {
+    var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits/"+id;
+    //$('#results').append("<h4>Results</h4>");
+
+    var auth = btoa('admin:district');
+    var result;
+    $.ajax({
+        type: 'GET',
+        headers: {"Authorization": "Basic " + auth},
+        url: DHIS2Url,
+        async: false, //TODO: Maybe remove
+        success: function (data) {
+            console.log(data);
+            result = data;
+        },
+        error: function (xhr) {
+            console.log(xhr)
+        }
+    });
+
+    return result;
 }
 
 function showData(data) {
@@ -293,12 +341,17 @@ function liveSearch(needle){
         }
     });
 }
-
-function addNewUnit(){
-    var name = $('#newUnitName').val();
+//returns ID of new org unit
+function addNewUnit(name, coordinates){
+    //var name = $('#newUnitName').val();
+    if (typeof coordinates === 'undefined' || variable === null) {
+        coordinates = "";
+    }
     var DHIS2Url = "https://play.dhis2.org/demo/api/organisationUnits";
-
     var auth = btoa('admin:district');
+
+    var id = "";
+
     $.ajax({
         url: DHIS2Url,
         beforeSend: function (xhr) {
@@ -308,13 +361,19 @@ function addNewUnit(){
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         processData: true,
-        data: '{"name":"'+name+'"}',
+        async: false,
+        data: '{"name":"'+name+'", "shortName":"'+name+'", "openingDate":"1970-01-01T00:00:00.000+0000"}',
         success: function (data) {
             console.log(data);
+            console.log(data.response.lastImported);
+            id = data.response.lastImported;
+            console.log(id);
         },
         error: function () {
             console.log("Cannot put data");
         }
     });
+
+    return id;
 }
 
