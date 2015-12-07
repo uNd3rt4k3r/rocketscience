@@ -1,21 +1,19 @@
 {
     "version": "0.1",
-    "name": "The App App",
-    "description": "Group Rocketscience",
-    "launch_path": "/index.html",
+    "name": "rocketscience",
+    "description": "App for managing organizational units",
+    "launch_path": "index.html",
     "icons": {
-        "16": "/assets/img/16_icon.png",
-        "48": "/assets/img/48_icon.png",
-        "128": "/assets/img/128_icon.png"
+        "48": ""
     },
     "developer": {
-        "name": "Emil Dohlen Hansen, Kristian Oddtroen",
-        "url": "*"
+        "name": "Emil Døhlen Hansen, Kristian",
+        "url": "http://some.dhis.url/"
     },
     "default_locale": "en",
     "activities": {
         "dhis": {
-            "href": "*"
+            "href": "https://play.dhis2.org/demo"
         }
     }
 }

@@ -1,6 +1,4 @@
 'use strict';
-
-
 angular.module('rocketscienceApp', [
     'ngAnimate',
     'ngCookies',
@@ -10,7 +8,7 @@ angular.module('rocketscienceApp', [
     'ngTouch'
 ]).config(function ($routeProvider) {
     $routeProvider.when('/', {
-        templateUrl: './views/main.html',
+        templateUrl: './views/skeleton.html',
         controller: 'MainCtrl'
     }).otherwise({
         redirectTo: '/'

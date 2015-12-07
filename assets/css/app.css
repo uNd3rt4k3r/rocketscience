@@ -13,17 +13,13 @@ body {
 }
 
 .fa-rocket {
-    /*color: #375474;*/
+    color: #375474;
 }
 
 #map-canvas {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
     width: 100%;
-    height: 400px;
-    margin-top: 20px;
+    min-height: 750px;
+    height:100%;
 }
 
 .link {
