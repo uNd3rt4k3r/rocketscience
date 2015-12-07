@@ -5,12 +5,13 @@ angular.module('rocketscienceApp', [
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
-]).config(function ($routeProvider) {
-    $routeProvider.when('/', {
-        templateUrl: './views/skeleton.html',
-        controller: 'MainCtrl'
-    }).otherwise({
-        redirectTo: '/'
-    });
+    'ngTouch',
+    'ui.router'
+]).config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/search");
+    $stateProvider.state('main', {
+            url: '/index',
+            templateUrl: './views/skeleton.html',
+            controller: 'mainCtrl'
+        });
 });
