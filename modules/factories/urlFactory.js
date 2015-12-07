@@ -17,7 +17,11 @@ angular.module('rocketscienceApp')
             return $http.get(baseURL + '/organisationUnits/' + id + '.json');
         };
 
-        factoryHandler.getUnitOnPageNUmber = function (page, parameters) {
+        factoryHandler.getOrgUnitOnPageNumber = function (page) {
+            return $http.get(baseURL + '/organisationUnits.json?page=' + page);
+        };
+
+        factoryHandler.getOrgUnitOnPageNumberWithFilter = function (page, parameters) {
             return $http.get(baseURL + '/organisationUnits.json?page=' + page + "&" + createFilter(parameters));
         };
 
@@ -25,8 +29,8 @@ angular.module('rocketscienceApp')
             return $http.post(baseURL + '/organisationUnits', newOrgUnit);
         };
 
-        factoryHandler.editOrgUnit = function (id, editOrgUnit) {
-            return $http.patch(baseURL + '/organisationUnits/' + id, editOrgUnit);
+        factoryHandler.editOrgUnit = function (id, editedOrgUnit) {
+            return $http.put(baseURL + '/organisationUnits/' + id, editedOrgUnit);
         };
 
         factoryHandler.getLevels = function () {

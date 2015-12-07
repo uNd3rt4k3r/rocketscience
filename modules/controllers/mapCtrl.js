@@ -1,17 +1,17 @@
 //Angular App Module and Controller
 
 var markers = [];
+var map;
 angular.module('rocketscienceApp')
     .controller('mapCtrl', function ($scope) {
         console.log("mapCtrl started");
 
         var mapOptions = {
-            zoom: 4,
-            center: new google.maps.LatLng(40.0000, -98.0000),
+            zoom: 3,
+            center: new google.maps.LatLng(3.61,15.28),
             mapTypeId: google.maps.MapTypeId.TERRAIN
         }
-        $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
         /*$scope.markers = [];
 
          var infoWindow = new google.maps.InfoWindow();

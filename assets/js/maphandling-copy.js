@@ -271,7 +271,7 @@ function editCordinates(data, lat, long) {
     DHIS2Url += '/coordinates';
     data.coordinates = lat + "," + long;
     console.log(data);
-    saveOrgUnit(data,DHIS2Url);
+    saveOrgUnit(data,data.href);
 }
 
 function saveOrgUnit(orgUnit, href) {
