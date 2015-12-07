@@ -4,15 +4,14 @@
             <div id="map-canvas" class="container map" ng-controller="mapCtrl"></div>
         </div>
         <div class="col-md-6">
-            <ul class="nav nav-pills">
+            <ul class="nav nav-tabs">
                 <li ng-click="setState('home.search')" class="active"><a data-toggle="pill">Search</a></li>
                 <li ng-click="setState('home.add')"><a data-toggle="pill">Add</a></li>
+                <li ng-click="setState('home.edit')"><a data-toggle="pill">Edit</a></li>
             </ul>
-
-
-            <div ui-view name="action"></div>
-
-
+                <div class="action-content">
+                <div ui-view name="action"></div>
+                </div>
         </div>
     </div>
 </div>
