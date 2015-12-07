@@ -1,4 +1,6 @@
 //Angular App Module and Controller
+
+var markers = [];
 angular.module('rocketscienceApp')
     .controller('mapCtrl', function ($scope) {
         console.log("mapCtrl started");
@@ -9,8 +11,8 @@ angular.module('rocketscienceApp')
             mapTypeId: google.maps.MapTypeId.TERRAIN
         }
         $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        /*
-         $scope.markers = [];
+
+        /*$scope.markers = [];
 
          var infoWindow = new google.maps.InfoWindow();
 

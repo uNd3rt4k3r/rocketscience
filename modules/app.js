@@ -8,7 +8,7 @@ angular.module('rocketscienceApp', [
     'ngTouch',
     'ui.router'
 ]).config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("search");
+    $urlRouterProvider.otherwise("/");
     $stateProvider
         .state('home', {
             url: '/',

@@ -1,6 +1,6 @@
 
 angular.module('rocketscienceApp')
-    .controller('searchCtrl', ['$scope', '$http','$rootScope','$state', '$stateParams', function ($scope,$http,$rootScope,$state, $stateParams) {
+    .controller('searchCtrl', ['$scope', '$http','$rootScope','$state', '$stateParams', 'urlFactory', function ($scope,$http,$rootScope,$state, $stateParams, urlFactory) {
         console.log("searchCtrl started");
 
         $scope.isActive = function(route) {
@@ -13,6 +13,21 @@ angular.module('rocketscienceApp')
             return (route !== $location.path());
         };
 
+        $scope.viewAllOrgUnits = function() {
+            console.log(3);
+            urlFactory.getAllOrgUnits().then( function (response) {
+                var allOrgUnits = response.data;
+                console.log(allOrgUnits);
+            });
+        }
 
+        if (baseURL !== "") {
+            $scope.viewAllOrgUnits();
+        } else {
+            urlFactory.getManifest().then(function (response) {
+                baseURL = response.data.activities.dhis.href + "/api";
+                $scope.viewAllOrgUnits();
+            });
+        }
 
     }]);
