@@ -1,6 +1,7 @@
 //Angular App Module and Controller
 angular.module('rocketscienceApp')
-    .controller('mapController', function ($scope) {
+    .controller('mapCtrl', function ($scope) {
+        console.log("mapCtrl started");
 
         var mapOptions = {
             zoom: 4,
@@ -8,7 +9,6 @@ angular.module('rocketscienceApp')
             mapTypeId: google.maps.MapTypeId.TERRAIN
         }
         $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
         /*
          $scope.markers = [];
 

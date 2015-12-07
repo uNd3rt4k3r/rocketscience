@@ -1,0 +1,18 @@
+<div class="container" ng-init="initState()">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="map-canvas" class="container map" ng-controller="mapCtrl"></div>
+        </div>
+        <div class="col-md-6">
+            <ul class="nav nav-pills">
+                <li ng-click="setState('home.search')" class="active"><a data-toggle="pill">Search</a></li>
+                <li ng-click="setState('home.add')"><a data-toggle="pill">Add</a></li>
+            </ul>
+
+
+            <div ui-view name="action"></div>
+
+
+        </div>
+    </div>
+</div>
