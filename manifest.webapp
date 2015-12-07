@@ -1,0 +1,21 @@
+{
+    "version": "0.1",
+    "name": "The App App",
+    "description": "Group Rocketscience",
+    "launch_path": "/index.html",
+    "icons": {
+        "16": "assets/img/16_icon.png",
+        "48": "assets/img/48_icon.png",
+        "128": "assets/img/128_icon.png"
+    },
+    "developer": {
+        "name": "Emil Døhlen Hansen, Kristian Oddtrøen",
+        "url": "*"
+    },
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": "*"
+        }
+    }
+}

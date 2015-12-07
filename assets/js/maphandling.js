@@ -97,12 +97,7 @@ function draw_map(myLatlng) {
     };
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-    //var marker = new google.maps.Marker({
-    //    position: myLatlng,
-    //    map: map
-    //});
 
-    //setLocation(myLatlng);
     //Map click listener
     google.maps.event.addListener(map, 'click', function (event) {
         //TODO: add new orgunit/facility ?
@@ -124,10 +119,9 @@ function draw_map(myLatlng) {
             editName(newOrgUnit, inputBox.value);
         });
         inputBox.focus();
+        inputBox.selectionStart = 0;
+        inputBox.selectionEnd = inputBox.value.length;
 
-
-        //marker = new google.maps.Marker({position: event.latLng, map: map});
-        //setLocation(event.latLng);
     });
 }
 
@@ -375,5 +369,25 @@ function addNewUnit(name, coordinates){
     });
 
     return id;
+}
+
+function getAllBorders() {
+
+}
+
+function getAllOrgUnitGroups() {
+    var url = "https://play.dhis2.org/demo/api/organisationUnitGroups";
+
+    var auth = btoa('admin:district');
+    $.ajax({
+        type: 'GET',
+        headers: {"Authorization": "Basic " + auth},
+        url: DHIS2Url,
+        success: function (data) {
+            return data.organisationUnitGroups;
+        }, error: function (xhr) {
+            console.log(xhr)
+        }
+    });
 }
 
