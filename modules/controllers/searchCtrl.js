@@ -3,7 +3,15 @@ angular.module('rocketscienceApp')
     .controller('searchCtrl', ['$scope', '$http','$rootScope','$state', '$stateParams', 'urlFactory', function ($scope,$http,$rootScope,$state, $stateParams, urlFactory) {
         console.log("searchCtrl started");
 
-        $scope.curPage = 16;
+        $scope.curPage = 1;
+
+        $scope.searchParam = [];
+        $scope.searchParam.organisationUnitGroups;
+        $scope.searchParam.organisationUnitBorder;
+
+        $scope.curSearchParam = [];
+        $scope.curSearchParam.organisationUnitGroups;
+        $scope.curSearchParam.organisationUnitBorder;
 
         //Variables for drag-drop instance
         $scope.markerInAir = false;
@@ -23,7 +31,6 @@ angular.module('rocketscienceApp')
         $scope.viewOrgUnitsOnCurPage = function() {
             urlFactory.getOrgUnitOnPageNumber($scope.curPage).then( function (response) {
                 var allOrgUnits = response.data;
-                console.log(allOrgUnits.organisationUnits);
 
                 $scope.showOrgUnitsOnMap(allOrgUnits.organisationUnits);
 
@@ -36,7 +43,6 @@ angular.module('rocketscienceApp')
                  //.hasOwnProperty('coordinates')
                  urlFactory.getOrgUnitById(orgUnits[index].id).then(function (orgUnit) {
                      orgUnit = orgUnit.data;
-                     console.log(orgUnit);
                      if (orgUnit.hasOwnProperty('coordinates')) {
                          if (orgUnit.coordinates != null && orgUnit.coordinates != "") {
                              var coordinate = orgUnit.coordinates.replace("[","");
@@ -113,13 +119,48 @@ angular.module('rocketscienceApp')
             });
         };
 
+        $scope.doSearch = function() {
+            console.log("Searching...");
+            console.log($scope.searchInput);
+            console.log($scope.selectedBorder);
+            console.log($scope.selectedGroup);
+            var filter = "";
+
+            //TODO: SEARCH
+            //'name:like:' + $scope.searchInput;}
+
+
+            //organisationUnitGroups.id:eq:' + $scope.selectedGroup
+            //level:eq: + $scope.selectedGroup
+        };
+
         if (baseURL !== "") {
-            $scope.viewOrgUnitsOnCurPage();
+            $scope.initSearchCtrl()
         } else {
             urlFactory.getManifest().then(function (response) {
                 baseURL = response.data.activities.dhis.href + "/api";
-                $scope.viewOrgUnitsOnCurPage();
+                $scope.initSearchCtrl()
             });
+        };
+
+        $scope.initSearchCtrl = function() {
+            urlFactory.getLevels().then(function (response) {
+                console.log(response);
+                $scope.searchParam.organisationUnitBorder = response.data.organisationUnitLevels;
+                //console.log($scope.organisationUnitBorder);
+            }, function (error) {
+                console.log(error);
+            });
+
+            urlFactory.getGroups().then(function (response) {
+                console.log(response);
+                $scope.searchParam.organisationUnitGroups = response.data.organisationUnitGroups;
+                //console.log($scope.organisationUnitGroups);
+            }, function (error) {
+                console.log(error);
+            });
+
+            $scope.viewOrgUnitsOnCurPage();
         }
 
     }]);

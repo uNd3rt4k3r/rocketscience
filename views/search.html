@@ -1,19 +1,21 @@
 <div class="form-group col-md-12">
     <label>Search</label>
-    <input type="text" class="form-control" placeholder="Search" ng-change="" ng-model="">
+    <input type="text" class="form-control" placeholder="Search" ng-change="doSearch()" ng-model="searchInput">
 </div>
 
 <div class="form-group col-md-6">
     <label>Border Options</label>
-    <select ng-change="" ng-model="" class="form-control">
+    <select ng-model="selectedBorder" ng-change="doSearch()" class="form-control">
         <option value="">Select Border</option>
+        <option value="{{border.level}}" ng-repeat="border in searchParam.organisationUnitBorder">{{border.name}}</option>
     </select>
 </div>
 
 <div class="form-group col-md-6">
     <label>Unit Group</label>
-    <select ng-change="" ng-model="" class="form-control">
+    <select ng-model="selectedGroup" ng-change="doSearch()" class="form-control">
         <option value="">Select Unit Group</option>
+        <option value="{{unitGroup.id}}" ng-repeat="unitGroup in searchParam.organisationUnitGroups">{{unitGroup.name}}</option>
     </select>
 </div>
 
