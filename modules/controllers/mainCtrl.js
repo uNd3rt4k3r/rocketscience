@@ -4,7 +4,7 @@ var baseURL = "";
 //var searchOrgMarkers = {};
 
 angular.module('rocketscienceApp')
-    .controller('mainCtrl', ['$scope', '$http','$rootScope','$state', '$stateParams', function ($scope,$http,$rootScope,$state, $stateParams) {
+    .controller('mainCtrl', ['$scope', '$http','$rootScope','$state','urlFactory', function ($scope,$http,$rootScope,$state,urlFactory) {
         console.log("mainCtrl started");
 
         $scope.isActive = function(route) {
@@ -18,14 +18,18 @@ angular.module('rocketscienceApp')
         };
 
         $scope.initState = function () {
-            console.log($state);
             $state.go('home.search');
-
-        }
+        };
 
         $scope.setState = function (action) {
-            console.log(action);
             $state.go(action);
-        }
+        };
 
+        $scope.setBaseUrl = function() {
+             urlFactory.getBaseUrl().then( function (response) {
+                 baseURL = response.data.activities.dhis.href;
+             });
+        };
+
+        $scope.setBaseUrl();
     }]);

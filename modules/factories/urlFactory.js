@@ -1,43 +1,45 @@
+//TODO: REWRITE THIS SHIT
 angular.module('rocketscienceApp')
-    .factory('orgUnitsFactory', ['$http', function ($http) {
+    .factory('urlFactory', ['$http', function ($http) {
 
-        var orgfactory = {};
+        var factoryHandler = {};
 
-        orgfactory.getBaseUrl = function () {
-            return $http.get('manifest.webapp');
-        }
+        factoryHandler.getBaseUrl = function () {
+           return $http.get('manifest.webapp');
 
-        orgfactory.getOrgUnits = function () {
+        };
+
+        factoryHandler.getOrgUnits = function () {
             return $http.get(urlBase + "/organisationUnits.json");
-        }
+        };
 
-        orgfactory.getOrgDetails = function (id) {
+        factoryHandler.getOrgDetails = function (id) {
             return $http.get(urlBase + '/organisationUnits/' + id + '.json');
-        }
+        };
 
-        orgfactory.getPageUnits = function (page, parameters) {
+        factoryHandler.getPageUnits = function (page, parameters) {
             return $http.get(urlBase + '/organisationUnits.json?page=' + page + "&" + createFilter(parameters));
-        }
+        };
 
-        orgfactory.addOrgUnit = function (newOrgUnit) {
+        factoryHandler.addOrgUnit = function (newOrgUnit) {
             return $http.post(urlBase + '/organisationUnits', newOrgUnit);
-        }
+        };
 
-        orgfactory.editOrgUnit = function (id, editOrgUnit) {
+        factoryHandler.editOrgUnit = function (id, editOrgUnit) {
             return $http.patch(urlBase + '/organisationUnits/' + id, editOrgUnit);
-        }
+        };
 
-        orgfactory.getLevels = function () {
+        factoryHandler.getLevels = function () {
             return $http.get(urlBase + '/organisationUnitLevels.json?fields=name,level');
-        }
+        };
 
-        orgfactory.getGroups = function () {
+        factoryHandler.getGroups = function () {
             return $http.get(urlBase + '/organisationUnitGroups.json');
-        }
+        };
 
-        orgfactory.getSearchResults = function (parameters) {
+        factoryHandler.getSearchResults = function (parameters) {
             return $http.get(urlBase + '/organisationUnits.json?' + createFilter(parameters));
-        }
+        };
 
         function createFilter(parameters) {
             var filter = "";
@@ -48,7 +50,7 @@ angular.module('rocketscienceApp')
                 }
             }
             return filter;
-        }
+        };
 
-        return orgfactory;
+        return factoryHandler;
     }]);
