@@ -33,3 +33,21 @@ body {
     color: #2ba6cb;
 }
 
+.nopadding{
+    padding:0;
+    margin:0;
+}
+
+.action-content{
+    background:#fff;
+    padding:20px;
+    border:1px solid #ddd;
+    border-top:0;
+    float:left;
+    width:100%;
+}
+
+textarea{
+    resize:vertical;
+    max-height:200px;
+}
