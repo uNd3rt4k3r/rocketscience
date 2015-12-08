@@ -1,6 +1,5 @@
-
 angular.module('rocketscienceApp')
-    .controller('searchCtrl', ['$scope', '$http','$rootScope','$state', '$stateParams', 'urlFactory', 'mapFactory', function ($scope,$http,$rootScope,$state, $stateParams, urlFactory, mapFactory) {
+    .controller('searchCtrl', ['$scope', '$http', '$rootScope', '$state', '$stateParams', 'urlFactory', 'mapFactory', function ($scope, $http, $rootScope, $state, $stateParams, urlFactory, mapFactory) {
         console.log("searchCtrl started");
 
         $scope.searchParam = [];
@@ -12,18 +11,17 @@ angular.module('rocketscienceApp')
         $scope.curSearchParam.organisationUnitBorder;
 
 
-
-        $scope.isActive = function(route) {
+        $scope.isActive = function (route) {
             //console.log("parm:" + route + " location: " + $location.path());
             return route === $location.path();
         };
 
-        $scope.isNotActive = function(route) {
+        $scope.isNotActive = function (route) {
             //console.log("parm:" + route + " location: " + $location.path());
             return (route !== $location.path());
         };
 
-        $scope.doSearch = function() {
+        $scope.doSearch = function () {
             console.log("Searching...");
             console.log($scope.searchInput);
             console.log($scope.selectedBorder);
@@ -38,7 +36,7 @@ angular.module('rocketscienceApp')
             //level:eq: + $scope.selectedGroup
         };
 
-        $scope.initSearchCtrl = function() {
+        $scope.initSearchCtrl = function () {
             urlFactory.getLevels().then(function (response) {
                 console.log(response);
                 $scope.searchParam.organisationUnitBorder = response.data.organisationUnitLevels;
@@ -55,11 +53,60 @@ angular.module('rocketscienceApp')
                 console.log(error);
             });
 
+            urlFactory.getAllOrgUnits().then(function (response) {
+                $scope.organisationUnits = response.data.organisationUnits;
+                $scope.pages = response.data.pager.pageCount;
+                $scope.pageSelected = 1;
+                //console.log($scope.organisationUnits);
+                //console.log($scope.pages);
+            }, function (error) {
+                console.log(error);
+            });
+
             mapFactory.showAllOrgUnits();
         };
 
+        $scope.setPage = function (page) {
+            urlFactory.getOrgUnitOnPageNumberWithParameters(page, "").then(function (response) {
+                $scope.organisationUnits = response.data.organisationUnits;
+                $scope.pageSelected = page;
+            }, function (error) {
+                console.log(error);
+            });
+
+        };
+
+        $scope.doSearch = function(){
+            urlFactory.getOrgUnitWithParameters(getParams()).then(function (response) {
+                $scope.organisationUnits = response.data.organisationUnits;
+                $scope.pages = response.data.pager.pageCount;
+                $scope.pageSelected = 1;
+            }, function (error) {
+                console.log(error); 
+            });
+        };
+
+        function getParams() {
+            var params = [];
+
+            if ($scope.searchInput) {
+                params.push('filter=name:like:' + $scope.searchInput);
+            }
+
+            if ($scope.selectedBorder) {
+                params.push('filter=level:eq:' + $scope.selectedBorder);
+            }
+
+            if ($scope.selectedGroup) {
+                params.push('filter=organisationUnitGroups.id:eq:' + $scope.selectedGroup);
+            }
+            params.push("fields=name,href,id,coordinates");
+
+            return params;
+        }
         //this is when the controller is destroyed/closed/left behind
-        $scope.$on("$destroy", function(){
+        $scope.$on("$destroy", function () {
+            console.log("?");
             mapFactory.clearAllMarkers();
         });
 

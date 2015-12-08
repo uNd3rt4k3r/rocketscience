@@ -80,6 +80,10 @@ angular.module('rocketscienceApp')
             }
         };
 
+        //Variables for drag-drop instance
+        var markerInAir = false;
+        var markerOldLng; //remembers old possision of a draged marker
+        var markerOldLat;
 
         factoryHandler.showAllOrgUnits = function() {
             //TODO: get all not just 1st page

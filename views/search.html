@@ -19,4 +19,16 @@
     </select>
 </div>
 
+<div class="col-md-12" ng-if="organisationUnits.length > 0">
+    <label>Results</label>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="orgunit in organisationUnits">{{orgunit.name}}</li>
+    </ul>
+
+    <ul class="pagination pagination-sm">
+        <li ng-class="($index + 1) == pageSelected ? 'active': ''" ng-repeat="n in [].constructor(pages) track by $index" ng-click="setPage($index + 1)">
+            <a>{{$index+1}}</a>
+        </li>
+    </ul>
+</div>
 
