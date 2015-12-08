@@ -60,9 +60,7 @@ angular.module('rocketscienceApp')
 
         //this is when the controller is destroyed/closed/left behind
         $scope.$on("$destroy", function(){
-            console.log("?");
             mapFactory.clearAllMarkers();
-            console.log("??");
         });
 
         if (baseURL !== "") {
