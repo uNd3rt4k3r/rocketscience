@@ -12,8 +12,6 @@ angular.module('rocketscienceApp')
             return (route !== $location.path());
         };
 
-        $scope.editUnit = {};
-
         $scope.newCoordinates = {'lng': 'undefined', 'lat': 'undefined'};
 
         $scope.setCoordinates = function () {
