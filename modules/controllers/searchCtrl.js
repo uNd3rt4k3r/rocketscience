@@ -71,8 +71,11 @@ angular.module('rocketscienceApp')
             });
         };
 
-        $scope.editOrgUnit = function () {
-
+        $scope.editOrgUnit = function (orgUnitId) {
+            console.log(orgUnitId);
+            $state.go('home.edit', {
+                unitId:orgUnitId
+            });
         }
 
         function getParams() {
