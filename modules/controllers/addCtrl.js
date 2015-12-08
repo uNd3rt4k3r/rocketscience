@@ -19,6 +19,10 @@ angular.module('rocketscienceApp')
         $scope.newCoordinates = { 'lng' : 'undefined' , 'lat' : 'undefined' };
 
         $scope.addOrgUnit = function() {
+<<<<<<< HEAD
+            $scope.setCoordinates();
+            console.log($scope.newOrgUnit);
+=======
 
             $scope.setCoordinates();
             if ($scope.newOrgUnit.closedDate == null) {
@@ -30,6 +34,7 @@ angular.module('rocketscienceApp')
             }, function(error) {
                 $.toaster({ priority : 'danger', title : 'Error', message : error.message });
             });
+>>>>>>> 625bdf707e8e6be70177b1c9ea6c2262576b7776
 
         };
 

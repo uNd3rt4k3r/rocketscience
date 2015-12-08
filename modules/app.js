@@ -40,6 +40,9 @@ angular.module('rocketscienceApp', [
                     templateUrl: '../views/edit.html',
                     controller: 'editCtrl'
                 }
-            }
+            },
+            params: {
+                unitId: null
+            },
         });
 });

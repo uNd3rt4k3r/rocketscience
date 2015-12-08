@@ -23,7 +23,7 @@
     <label>Results</label>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="orgunit in organisationUnits">
-            <a href="#">{{orgunit.name}}</a>
+            <a ng-click="editOrgUnit(orgunit.id)" >{{orgunit.name}}</a>
         </li>
     </ul>
 
