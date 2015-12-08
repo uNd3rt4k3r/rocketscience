@@ -16,7 +16,6 @@ angular.module('rocketscienceApp')
 
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-
         //Variables for drag-drop instance
         var markerInAir = false;
         var markerOldLng; //remembers old possision of a draged marker
@@ -32,7 +31,7 @@ angular.module('rocketscienceApp')
             });
         };
 
-        /*NOTE
+        /*NOTE regarding wrong lat lng
          **  https://lists.launchpad.net/dhis2-users/msg00746.html **
          >> Correct me if I'm wrong, but I guess we need to clarify this once and for
          >> all :)
