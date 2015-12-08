@@ -22,7 +22,9 @@
 <div class="col-md-12" ng-if="organisationUnits.length > 0">
     <label>Results</label>
     <ul class="list-group">
-        <li class="list-group-item" ng-repeat="orgunit in organisationUnits">{{orgunit.name}}</li>
+        <li class="list-group-item" ng-repeat="orgunit in organisationUnits">
+            <a href="#">{{orgunit.name}}</a>
+        </li>
     </ul>
 
     <ul class="pagination pagination-sm">
