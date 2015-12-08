@@ -3,6 +3,7 @@ angular.module('rocketscienceApp')
     .controller('addCtrl', ['$scope', '$http','$rootScope','$state', '$stateParams', 'urlFactory', 'mapFactory', function ($scope,$http,$rootScope,$state, $stateParams, urlFactory, mapFactory) {
         console.log("addCtrl started");
 
+
         $scope.isActive = function(route) {
             //console.log("parm:" + route + " location: " + $location.path());
             return route === $location.path();
@@ -18,8 +19,17 @@ angular.module('rocketscienceApp')
         $scope.newCoordinates = { 'lng' : 'undefined' , 'lat' : 'undefined' };
 
         $scope.addOrgUnit = function() {
+
             $scope.setCoordinates();
-            console.log($scope.newOrgUnit);
+            if ($scope.newOrgUnit.closedDate == null) {
+                delete $scope.newOrgUnit.closedDate;
+            }
+
+            urlFactory.addOrgUnit($scope.newOrgUnit).then(function() {
+                $.toaster({ priority : 'success', title : 'Success', message : 'New Organization Unit added'});
+            }, function(error) {
+                $.toaster({ priority : 'danger', title : 'Error', message : error.message });
+            });
 
         };
 
@@ -30,7 +40,7 @@ angular.module('rocketscienceApp')
         };
 
         $scope.findme = function() {
-          mapFactory.putSingleMarkerAsCurLocation();
+            mapFactory.putSingleMarkerAsCurLocation();
         };
 
 

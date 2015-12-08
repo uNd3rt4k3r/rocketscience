@@ -45,8 +45,6 @@ angular.module('rocketscienceApp')
                 lng = position.coords.longitude;
             }
 
-
-            console.log(factoryHandler.currentCtrlScope);
             var myLatlng = new google.maps.LatLng(lat, lng);
 
             if (typeof singleMarker !== 'undefined') {
