@@ -4,6 +4,8 @@ angular.module('rocketscienceApp')
 
         var factoryHandler = {};
 
+        factoryHandler.currentCtrlScope;
+
         var markers = [];
         var map;
         var mapOptions = {
@@ -34,18 +36,17 @@ angular.module('rocketscienceApp')
         factoryHandler.putSingleMarker = function(position) {
             var lat;
             var lng;
-            console.log(position);
+
             if (position.hasOwnProperty('latLng')) { //on map click
-                console.log("click");
-                var lat = position.latLng.lat();
-                var lng = position.latLng.lng();
+                lat = position.latLng.lat();
+                lng = position.latLng.lng();
             } else { //current location
-                console.log("current");
-                var lat = position.coords.latitude;
-                var lng = position.coords.longitude;
+                lat = position.coords.latitude;
+                lng = position.coords.longitude;
             }
 
 
+            console.log(factoryHandler.currentCtrlScope);
             var myLatlng = new google.maps.LatLng(lat, lng);
 
             if (typeof singleMarker !== 'undefined') {
@@ -61,13 +62,20 @@ angular.module('rocketscienceApp')
 
             map.panTo(myLatlng);
 
-            /*google.maps.event.addListener(singleMarker,'drag',function(event) {
-                addCtrl.$scope.newLatitude
+            google.maps.event.addListener(singleMarker,'drag',function(event) {
+                dragLat = event.latLng.lat();
+                dragLng = event.latLng.lng();
+
+                factoryHandler.currentCtrlScope.newCoordinates.lat = dragLat;
+                factoryHandler.currentCtrlScope.newCoordinates.lng = dragLng;
+                factoryHandler.currentCtrlScope.$apply();
             });
 
-            google.maps.event.addListener(singleMarker,'dragend',function(event) {
+            factoryHandler.currentCtrlScope.newCoordinates.lat = lat;
+            factoryHandler.currentCtrlScope.newCoordinates.lng = lng;
+            factoryHandler.currentCtrlScope.$apply();
 
-            });*/
+
             return myLatlng;
 
         };

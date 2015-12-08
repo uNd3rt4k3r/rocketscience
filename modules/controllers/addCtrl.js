@@ -14,16 +14,25 @@ angular.module('rocketscienceApp')
         };
 
         $scope.newOrgUnit = {};
-        $scope.newLatitude;
-        $scope.newLongitude;
+
+        $scope.newCoordinates = { 'lng' : 'undefined' , 'lat' : 'undefined' };
 
         $scope.addOrgUnit = function() {
+            $scope.setCoordinates();
             console.log($scope.newOrgUnit);
+
+        };
+
+        $scope.setCoordinates = function () {
+          if ($scope.newCoordinates.lat !== 'undefined') {
+              $scope.newOrgUnit.coordinates = "[" + $scope.newCoordinates.lng + "," + $scope.newCoordinates.lat + "]";
+          }
         };
 
         $scope.findme = function() {
           mapFactory.putSingleMarkerAsCurLocation();
         };
+
 
         $scope.$on("$destroy", function(){
             mapFactory.setAddControllerActive(false);
@@ -31,5 +40,7 @@ angular.module('rocketscienceApp')
         });
 
         mapFactory.setAddControllerActive(true);
+
+        mapFactory.currentCtrlScope = $scope;
 
     }]);
