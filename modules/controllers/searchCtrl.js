@@ -37,32 +37,56 @@ angular.module('rocketscienceApp')
             });
         };
 
+
+        //NOTE
+        /*  https://lists.launchpad.net/dhis2-users/msg00746.html **
+         >> Correct me if I'm wrong, but I guess we need to clarify this once and for
+         >> all :)
+         >>
+         >> EPSG:4326, aka WGS84, is [x, y] where
+         >>
+         >> x = the east-west position = longitude
+         >>
+         >> y = the north-south position = latitude
+         >>
+         */
         $scope.showOrgUnitsOnMap = function(orgUnits) {
-            markers = [];
+            $scope.clearAllMarkers();
+
             for (var index in orgUnits) {
                  //.hasOwnProperty('coordinates')
                  urlFactory.getOrgUnitById(orgUnits[index].id).then(function (orgUnit) {
                      orgUnit = orgUnit.data;
                      if (orgUnit.hasOwnProperty('coordinates')) {
                          if (orgUnit.coordinates != null && orgUnit.coordinates != "") {
+                             console.log(orgUnit.coordinates);
                              var coordinate = orgUnit.coordinates.replace("[","");
                              coordinate = coordinate.replace("]","");
 
                              var coordinates = coordinate.split(",");
-                             var lat = coordinates[0];
-                             var lng = coordinates[1];
-                             var myLatLng = {lat: parseInt(lat), lng: parseInt(lng)};
+                             console.log(coordinates);
+                             var lng = coordinates[0];
+                             var lat = coordinates[1];
+                             console.log(lat);
+                             console.log(lng);
+                             var myLatLng = {lat: parseFloat(lat), lng: parseFloat(lng)};
 
-                             markers += $scope.add_marker(myLatLng,orgUnit);
+                             markers.push($scope.add_marker(myLatLng,orgUnit));
                          }
 
                      }
                  });
-
-
-
              }
+
+
         };
+
+        $scope.clearAllMarkers = function () {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers = [];
+        }
 
         $scope.add_marker = function(myLatlng, orgUnit) {
             var marker = new google.maps.Marker({
@@ -94,7 +118,7 @@ angular.module('rocketscienceApp')
             google.maps.event.addListener(marker,'dragend',function(event) {
                 //console.log("Drag stop");
                 if (confirm("Save new position of "+orgUnit.name+"?")) {
-                    var newCordinates = "[" + event.latLng.lat() + "," + event.latLng.lng() + "]";
+                    var newCordinates = "[" + event.latLng.lng() + "," + event.latLng.lat() + "]";
                     orgUnit.coordinates = newCordinates;
                     $scope.updateOrgUnit(orgUnit);
 
@@ -134,14 +158,7 @@ angular.module('rocketscienceApp')
             //level:eq: + $scope.selectedGroup
         };
 
-        if (baseURL !== "") {
-            $scope.initSearchCtrl()
-        } else {
-            urlFactory.getManifest().then(function (response) {
-                baseURL = response.data.activities.dhis.href + "/api";
-                $scope.initSearchCtrl()
-            });
-        };
+
 
         $scope.initSearchCtrl = function() {
             urlFactory.getLevels().then(function (response) {
@@ -161,6 +178,16 @@ angular.module('rocketscienceApp')
             });
 
             $scope.viewOrgUnitsOnCurPage();
-        }
+        };
+
+
+        if (baseURL !== "") {
+            $scope.initSearchCtrl()
+        } else {
+            urlFactory.getManifest().then(function (response) {
+                baseURL = response.data.activities.dhis.href + "/api";
+                $scope.initSearchCtrl()
+            });
+        };
 
     }]);
