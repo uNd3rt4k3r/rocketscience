@@ -41,8 +41,8 @@ angular.module('rocketscienceApp')
                 lat = position.latLng.lat();
                 lng = position.latLng.lng();
             } else if (position.hasOwnProperty('initEditMarker')) { //current location
-                lat = position.latLng.lat;
-                lng = position.latLng.lng;
+                lat = position.initEditMarker.lat;
+                lng = position.initEditMarker.lng;
             } else { //current location
                 lat = position.coords.latitude;
                 lng = position.coords.longitude;
