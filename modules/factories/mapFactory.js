@@ -67,14 +67,22 @@ angular.module('rocketscienceApp')
                 dragLat = event.latLng.lat();
                 dragLng = event.latLng.lng();
 
-                factoryHandler.currentCtrlScope.newCoordinates.lat = dragLat;
-                factoryHandler.currentCtrlScope.newCoordinates.lng = dragLng;
-                factoryHandler.currentCtrlScope.$apply();
+                $scope.evalAsync(function(){
+                    factoryHandler.currentCtrlScope.newCoordinates.lat = dragLat;
+                    factoryHandler.currentCtrlScope.newCoordinates.lng = dragLng;
+                });
+                //factoryHandler.currentCtrlScope.newCoordinates.lat = dragLat;
+                //factoryHandler.currentCtrlScope.newCoordinates.lng = dragLng;
+                //factoryHandler.currentCtrlScope.$apply();
             });
 
-            factoryHandler.currentCtrlScope.newCoordinates.lat = lat;
-            factoryHandler.currentCtrlScope.newCoordinates.lng = lng;
-            factoryHandler.currentCtrlScope.$apply();
+            $scope.evalAsync(function(){
+                factoryHandler.currentCtrlScope.newCoordinates.lat = dragLat;
+                factoryHandler.currentCtrlScope.newCoordinates.lng = dragLng;
+            });
+            //factoryHandler.currentCtrlScope.newCoordinates.lat = lat;
+            //factoryHandler.currentCtrlScope.newCoordinates.lng = lng;
+            //factoryHandler.currentCtrlScope.$apply();
 
 
             return myLatlng;
