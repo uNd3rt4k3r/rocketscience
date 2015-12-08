@@ -67,7 +67,7 @@ angular.module('rocketscienceApp')
                 dragLat = event.latLng.lat();
                 dragLng = event.latLng.lng();
 
-                $scope.evalAsync(function(){
+                factoryHandler.currentCtrlScope.evalAsync(function(){
                     factoryHandler.currentCtrlScope.newCoordinates.lat = dragLat;
                     factoryHandler.currentCtrlScope.newCoordinates.lng = dragLng;
                 });
@@ -76,7 +76,7 @@ angular.module('rocketscienceApp')
                 //factoryHandler.currentCtrlScope.$apply();
             });
 
-            $scope.evalAsync(function(){
+            factoryHandler.currentCtrlScope.evalAsync(function(){
                 factoryHandler.currentCtrlScope.newCoordinates.lat = dragLat;
                 factoryHandler.currentCtrlScope.newCoordinates.lng = dragLng;
             });
