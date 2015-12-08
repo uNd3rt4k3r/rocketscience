@@ -67,7 +67,7 @@ angular.module('rocketscienceApp')
                 $scope.pages = response.data.pager.pageCount;
                 $scope.pageSelected = 1;
             }, function (error) {
-                console.log(error); 
+                console.log(error);
             });
         };
 
@@ -95,7 +95,6 @@ angular.module('rocketscienceApp')
 
         //this is when the controller is destroyed/closed/left behind
         $scope.$on("$destroy", function () {
-            console.log("?");
             mapFactory.clearAllMarkers();
         });
 
@@ -108,5 +107,7 @@ angular.module('rocketscienceApp')
             });
         }
         ;
+
+        mapFactory.currentCtrlScope = $scope;
 
     }]);

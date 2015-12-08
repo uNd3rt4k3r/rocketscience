@@ -1,6 +1,6 @@
 
 angular.module('rocketscienceApp')
-    .controller('editCtrl', ['$scope', '$http','$rootScope','$state', '$stateParams', function ($scope,$http,$rootScope,$state, $stateParams) {
+    .controller('editCtrl', ['$scope', '$http','$rootScope','$state', '$stateParams', 'mapFactory', function ($scope,$http,$rootScope,$state, $stateParams, mapFactory) {
         console.log("editCtrl started");
 
         $scope.isActive = function(route) {
@@ -14,5 +14,6 @@ angular.module('rocketscienceApp')
         };
 
 
+        mapFactory.currentCtrlScope = $scope;
 
     }]);
