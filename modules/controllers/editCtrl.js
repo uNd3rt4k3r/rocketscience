@@ -1,5 +1,9 @@
 angular.module('rocketscienceApp')
+<<<<<<< HEAD
     .controller('editCtrl', ['$scope', '$http', '$rootScope', '$state', '$stateParams', 'urlFactory', 'mapFactory', function ($scope, $http, $rootScope, $state, $stateParams, urlFactory, mapFactory) {
+=======
+    .controller('editCtrl', ['$scope', '$http','$rootScope','$state', '$stateParams', 'mapFactory', function ($scope,$http,$rootScope,$state, $stateParams, mapFactory) {
+>>>>>>> 625bdf707e8e6be70177b1c9ea6c2262576b7776
         console.log("editCtrl started");
 
         $scope.isActive = function (route) {
@@ -46,10 +50,14 @@ angular.module('rocketscienceApp')
             $scope.setEditUnit($stateParams.unitId);
         }
 
+<<<<<<< HEAD
         $scope.$on("$destroy", function(){
             mapFactory.setAddControllerActive(false);
             mapFactory.clearAllMarkers();
         });
+=======
+        mapFactory.currentCtrlScope = $scope;
+>>>>>>> 625bdf707e8e6be70177b1c9ea6c2262576b7776
 
         mapFactory.setAddControllerActive(true);
         mapFactory.currentCtrlScope = $scope;

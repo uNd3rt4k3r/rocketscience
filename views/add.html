@@ -1,44 +1,59 @@
 <h4>Details</h4>
 <hr>
+<<<<<<< HEAD
 <div class="form-group col-md-6">
     <label>Name <i class="text-danger">*</i></label>
     <input id="new_name" type="text" class="form-control" placeholder="Name" ng-model="newOrgUnit.name">
 </div>
+=======
+<form name="addNewForm">
+    <div class="form-group col-md-6">
+        <label>Name <i class="text-danger">*</i></label>
+        <input id="new_name" type="text" class="form-control" placeholder="Name" ng-model="newOrgUnit.name" required>
+        <p ng-show="newOrgUnit.name.$error.required">The name is required.</p>
+    </div>
 
-<div class="form-group col-md-6">
-    <label>Short Name<i class="text-danger">*</i></label>
-    <input id="new_shortname" type="text" class="form-control" placeholder="Short Name" ng-model="newOrgUnit.shortName">
-</div>
+    <div class="form-group col-md-6">
+        <label>Short Name<i class="text-danger">*</i></label>
+        <input id="new_shortname" type="text" class="form-control" placeholder="Short Name" ng-model="newOrgUnit.shortName" required>
+    </div>
+>>>>>>> 625bdf707e8e6be70177b1c9ea6c2262576b7776
 
-<div class="form-group col-md-12">
-    <label>Description</label>
-    <textarea id="new_description" class="form-control" rows="3" placeholder="Description" ng-model="newOrgUnit.description"></textarea>
-</div>
+    <div class="form-group col-md-12">
+        <label>Description</label>
+        <textarea id="new_description" class="form-control" rows="3" placeholder="Description" ng-model="newOrgUnit.description"></textarea>
+    </div>
 
-<div class="form-group col-md-6">
-    <label>Code</label>
-    <input id="new_code" type="text" class="form-control" placeholder="Code" ng-model="newOrgUnit.code">
-</div>
+    <div class="form-group col-md-6">
+        <label>Code</label>
+        <input id="new_code" type="text" class="form-control" placeholder="Code" ng-model="newOrgUnit.code">
+    </div>
 
-<div class="form-group col-md-6">
-    <label>URL</label>
-    <input id="new_url" type="text" class="form-control" placeholder="URL" ng-model="newOrgUnit.url">
-</div>
+    <div class="form-group col-md-6">
+        <label>URL</label>
+        <input id="new_url" type="text" class="form-control" placeholder="URL" ng-model="newOrgUnit.url">
+    </div>
 
-<div class="form-group col-md-12">
-    <label>Comment</label>
-    <textarea id="new_comment" class="form-control" rows="3" placeholder="Comment" ng-model="newOrgUnit.comment"></textarea>
-</div>
+    <div class="form-group col-md-12">
+        <label>Comment</label>
+        <textarea id="new_comment" class="form-control" rows="3" placeholder="Comment" ng-model="newOrgUnit.comment"></textarea>
+    </div>
 
-<div class="form-group col-md-6">
-    <label>Opening date <i class="text-danger">*</i></label>
-    <input id="new_openingdate" type="date" class="form-control" ng-model="newOrgUnit.openingDate">
-</div>
-<div class="form-group col-md-6">
-    <label>Closed date</label>
-    <input id="new_closeddate" type="date" class="form-control" ng-model="newOrgUnit.closedDate">
-</div>
+    <div class="form-group col-md-6">
+        <label>Opening date <i class="text-danger">*</i></label>
+        <input id="new_openingdate" type="date" class="form-control" ng-model="newOrgUnit.openingDate" required>
+    </div>
+    <div class="form-group col-md-6">
+        <label>Closed date</label>
+        <input id="new_closeddate" type="date" class="form-control" ng-model="newOrgUnit.closedDate" >
+    </div>
 
+    <div class="form-group col-md-6">
+        <label>Latitude</label>
+        <input id="new_latitude" type="text" class="form-control" placeholder="Latitude" ng-model="newCoordinates.lat" disabled>
+    </div>
+
+<<<<<<< HEAD
 <div class="form-group col-md-6">
     <label>Latitude</label>
     <input id="new_latitude" type="text" class="form-control" placeholder="Latitude" ng-model="newCoordinates.lat" disabled>
@@ -48,31 +63,39 @@
     <label>Longitude</label>
     <input id="new_longitude" type="text" class="form-control" placeholder="Longitude" ng-model="newCoordinates.lng" disabled>
 </div>
+=======
+    <div class="form-group col-md-6">
+        <label>Longitude</label>
+        <input id="new_longitude" type="text" class="form-control" placeholder="Longitude" ng-model="newCoordinates.lng" disabled>
+    </div>
 
-<div class="form-group col-md-12">
-    <button class="form-control btn btn-default" ng-click="findme()">Get position</button>
-</div>
+    <div class="form-group col-md-12">
+        <button class="form-control btn btn-default" ng-click="findme()">Get position</button>
+    </div>
+>>>>>>> 625bdf707e8e6be70177b1c9ea6c2262576b7776
 
-<h4>Contact Information</h4>
-<hr>
-<div class="form-group col-md-6">
-    <label>Contact Person</label>
-    <input id="new_person" type="text" class="form-control" ng-model="newOrgUnit.contactPerson">
-</div>
-<div class="form-group col-md-6">
-    <label>Address</label>
-    <input id="new_address" type="text" class="form-control" ng-model="newOrgUnit.address">
-</div>
-<div class="form-group col-md-6">
-    <label>Email</label>
-    <input id="new_email" type="text" class="form-control" ng-model="newOrgUnit.email">
-</div>
+    <h4>Contact Information</h4>
+    <hr>
+    <div class="form-group col-md-6">
+        <label>Contact Person</label>
+        <input id="new_person" type="text" class="form-control" ng-model="newOrgUnit.contactPerson">
+    </div>
+    <div class="form-group col-md-6">
+        <label>Address</label>
+        <input id="new_address" type="text" class="form-control" ng-model="newOrgUnit.address">
+    </div>
+    <div class="form-group col-md-6">
+        <label>Email</label>
+        <input id="new_email" type="text" class="form-control" ng-model="newOrgUnit.email">
+    </div>
 
-<div class="form-group col-md-6">
-    <label>Phone</label>
-    <input id="new_phone" type="text" class="form-control" ng-model="newOrgUnit.phone">
-</div>
+    <div class="form-group col-md-6">
+        <label>Phone</label>
+        <input id="new_phone" type="text" class="form-control" ng-model="newOrgUnit.phone">
+    </div>
 
-<div class="form-group col-md-12">
-    <button class="btn btn-primary" type="submit" name="new_add" ng-click="addOrgUnit()" ng-disabled="">Add Unit</button>
-</div>
+    <div class="form-group col-md-12">
+        <button class="btn btn-primary" type="submit" name="new_add" ng-submit="addOrgUnit()" ng-disabled="">Add Unit</button>
+    </div>
+
+</form>
