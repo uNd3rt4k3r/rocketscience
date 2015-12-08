@@ -76,7 +76,7 @@ angular.module('rocketscienceApp')
 
         };
 
-        $scope.doSearch = function(){
+        $scope.doSearch = function () {
             urlFactory.getOrgUnitWithParameters(getParams()).then(function (response) {
                 $scope.organisationUnits = response.data.organisationUnits;
                 $scope.pages = response.data.pager.pageCount;
@@ -87,23 +87,23 @@ angular.module('rocketscienceApp')
         };
 
         function getParams() {
-            var params = [];
-
-            if ($scope.searchInput) {
-                params.push('filter=name:like:' + $scope.searchInput);
-            }
+            var parameters = [];
 
             if ($scope.selectedBorder) {
-                params.push('filter=level:eq:' + $scope.selectedBorder);
+                parameters.push('filter=level:eq:' + $scope.selectedBorder);
             }
-
             if ($scope.selectedGroup) {
-                params.push('filter=organisationUnitGroups.id:eq:' + $scope.selectedGroup);
+                parameters.push('filter=organisationUnitGroups.id:eq:' + $scope.selectedGroup);
             }
-            params.push("fields=name,href,id,coordinates");
+            if ($scope.searchInput) {
+                parameters.push('filter=name:like:' + $scope.searchInput);
+            }
 
-            return params;
+            parameters.push("fields=name,href,id,coordinates");
+
+            return parameters;
         }
+
         //this is when the controller is destroyed/closed/left behind
         $scope.$on("$destroy", function () {
             mapFactory.clearAllMarkers();
@@ -116,7 +116,8 @@ angular.module('rocketscienceApp')
                 baseURL = response.data.activities.dhis.href + "/api";
                 $scope.initSearchCtrl()
             });
-        };
+        }
+        ;
 
         mapFactory.currentCtrlScope = $scope;
 
