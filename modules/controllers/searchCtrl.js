@@ -21,21 +21,6 @@ angular.module('rocketscienceApp')
             return (route !== $location.path());
         };
 
-        $scope.doSearch = function () {
-            console.log("Searching...");
-            console.log($scope.searchInput);
-            console.log($scope.selectedBorder);
-            console.log($scope.selectedGroup);
-            var filter = "";
-
-            //TODO: SEARCH
-            //'name:like:' + $scope.searchInput;}
-
-
-            //organisationUnitGroups.id:eq:' + $scope.selectedGroup
-            //level:eq: + $scope.selectedGroup
-        };
-
         $scope.initSearchCtrl = function () {
             urlFactory.getLevels().then(function (response) {
                 console.log(response);
@@ -85,6 +70,10 @@ angular.module('rocketscienceApp')
                 console.log(error); 
             });
         };
+
+        $scope.editOrgUnit = function () {
+
+        }
 
         function getParams() {
             var parameters = [];
