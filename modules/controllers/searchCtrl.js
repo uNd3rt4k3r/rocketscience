@@ -74,7 +74,7 @@ angular.module('rocketscienceApp')
                 console.log(error);
             });
 
-        }
+        };
 
         $scope.doSearch = function () {
             urlFactory.getOrgUnitWithParameters(getParams()).then(function (response) {
@@ -82,9 +82,9 @@ angular.module('rocketscienceApp')
                 $scope.pages = response.data.pager.pageCount;
                 $scope.pageSelected = 1;
             }, function (error) {
-                console.log(error);
+                console.log(error); 
             });
-        }
+        };
 
         function getParams() {
             var parameters = [];
@@ -108,7 +108,6 @@ angular.module('rocketscienceApp')
         $scope.$on("$destroy", function () {
             console.log("?");
             mapFactory.clearAllMarkers();
-            console.log("??");
         });
 
         if (baseURL !== "") {

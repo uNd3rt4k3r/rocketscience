@@ -1,20 +1,84 @@
 angular.module('rocketscienceApp')
-    .factory('mapFactory', ['urlFactory',function (urlFactory) {
+    .factory('mapFactory', ['urlFactory', function (urlFactory) {
         console.log("mapFactory init");
 
         var factoryHandler = {};
 
         var markers = [];
-
         var map;
-
         var mapOptions = {
             zoom: 3,
             center: new google.maps.LatLng(3.61,15.28),
             mapTypeId: google.maps.MapTypeId.TERRAIN
         };
+        //Variables for drag-drop instance
+        var markerOldLng; //remembers old possision of a draged marker
+        var markerOldLat;
+
+        //Variables for add-controller
+        var singleMarker;
+        var addControllerActive = false;
 
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        map.addListener('click', function(event) {
+            if (addControllerActive) {
+                factoryHandler.putSingleMarker(event);
+            }
+        });
+
+        factoryHandler.setAddControllerActive = function(value) {
+            addControllerActive = value;
+        };
+
+        factoryHandler.putSingleMarker = function(position) {
+            var lat;
+            var lng;
+            console.log(position);
+            if (position.hasOwnProperty('latLng')) { //on map click
+                console.log("click");
+                var lat = position.latLng.lat();
+                var lng = position.latLng.lng();
+            } else { //current location
+                console.log("current");
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+            }
+
+
+            var myLatlng = new google.maps.LatLng(lat, lng);
+
+            if (typeof singleMarker !== 'undefined') {
+                singleMarker.setMap(null);
+            }
+
+            singleMarker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'New Organization Unit',
+                draggable: true
+            });
+
+            map.panTo(myLatlng);
+
+            /*google.maps.event.addListener(singleMarker,'drag',function(event) {
+                addCtrl.$scope.newLatitude
+            });
+
+            google.maps.event.addListener(singleMarker,'dragend',function(event) {
+
+            });*/
+            return myLatlng;
+
+        };
+
+        factoryHandler.putSingleMarkerAsCurLocation = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(factoryHandler.putSingleMarker);
+            } else {
+                alert("Well this is awkward, we can't find your location.");
+            }
+        };
 
         //Variables for drag-drop instance
         var markerInAir = false;
@@ -76,6 +140,10 @@ angular.module('rocketscienceApp')
                 markers[i].setMap(null);
             }
             markers = [];
+
+            if (typeof singleMarker !== 'undefined') {
+                singleMarker.setMap(null);
+            }
         };
 
         factoryHandler.add_marker = function(myLatlng, orgUnit) {
@@ -97,16 +165,13 @@ angular.module('rocketscienceApp')
             //marker.infowindow = infowindow;
 
 
-            google.maps.event.addListener(marker,'drag',function(event) {
-                if (!markerInAir) {
-                    markerInAir = true;
+            google.maps.event.addListener(marker,'dragstart',function(event) {
                     markerOldLng = event.latLng.lng();
                     markerOldLat = event.latLng.lat();
-                }
             });
 
             google.maps.event.addListener(marker,'dragend',function(event) {
-                //console.log("Drag stop");
+
                 if (confirm("Save new position of "+orgUnit.name+"?")) {
                     var newCordinates = "[" + event.latLng.lng() + "," + event.latLng.lat() + "]";
                     orgUnit.coordinates = newCordinates;
@@ -118,7 +183,6 @@ angular.module('rocketscienceApp')
                 }
 
                 marker.setClickable(true);
-                markerInAir = false;
             });
 
             return marker;
@@ -132,6 +196,10 @@ angular.module('rocketscienceApp')
                 console.log(error);
             });
         };
+
+        factoryHandler.addSingleMarker = function() {
+
+        }
 
 
 
