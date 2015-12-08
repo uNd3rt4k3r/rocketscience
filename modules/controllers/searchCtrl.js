@@ -42,19 +42,21 @@ angular.module('rocketscienceApp')
                 $scope.organisationUnits = response.data.organisationUnits;
                 $scope.pages = response.data.pager.pageCount;
                 $scope.pageSelected = 1;
+                mapFactory.showOrgUnitsOnMap($scope.organisationUnits);
                 //console.log($scope.organisationUnits);
                 //console.log($scope.pages);
             }, function (error) {
                 console.log(error);
             });
 
-            mapFactory.showAllOrgUnits();
+            //mapFactory.showAllOrgUnits();
         };
 
         $scope.setPage = function (page) {
-            urlFactory.getOrgUnitOnPageNumberWithParameters(page, "").then(function (response) {
+            urlFactory.getOrgUnitOnPageNumberWithParameters(page, getParams()).then(function (response) {
                 $scope.organisationUnits = response.data.organisationUnits;
                 $scope.pageSelected = page;
+                mapFactory.showOrgUnitsOnMap($scope.organisationUnits);
             }, function (error) {
                 console.log(error);
             });
@@ -66,6 +68,7 @@ angular.module('rocketscienceApp')
                 $scope.organisationUnits = response.data.organisationUnits;
                 $scope.pages = response.data.pager.pageCount;
                 $scope.pageSelected = 1;
+                mapFactory.showOrgUnitsOnMap($scope.organisationUnits);
             }, function (error) {
                 console.log(error);
             });
