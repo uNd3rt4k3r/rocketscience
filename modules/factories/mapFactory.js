@@ -40,6 +40,9 @@ angular.module('rocketscienceApp')
             if (position.hasOwnProperty('latLng')) { //on map click
                 lat = position.latLng.lat();
                 lng = position.latLng.lng();
+            } else if (position.hasOwnProperty('initEditMarker')) { //current location
+                lat = position.latLng.lat
+                lng = position.latLng.lng
             } else { //current location
                 lat = position.coords.latitude;
                 lng = position.coords.longitude;

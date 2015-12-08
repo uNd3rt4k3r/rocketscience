@@ -1,15 +1,15 @@
 <h4>Details</h4>
 <hr>
-<form name="addNewForm">
+
     <div class="form-group col-md-6">
         <label>Name <i class="text-danger">*</i></label>
-        <input id="new_name" type="text" class="form-control" placeholder="Name" ng-model="newOrgUnit.name" required>
+        <input id="new_name" type="text" class="form-control" placeholder="Name" ng-model="newOrgUnit.name">
         <p ng-show="newOrgUnit.name.$error.required">The name is required.</p>
     </div>
 
     <div class="form-group col-md-6">
         <label>Short Name<i class="text-danger">*</i></label>
-        <input id="new_shortname" type="text" class="form-control" placeholder="Short Name" ng-model="newOrgUnit.shortName" required>
+        <input id="new_shortname" type="text" class="form-control" placeholder="Short Name" ng-model="newOrgUnit.shortName">
     </div>
 
     <div class="form-group col-md-12">
@@ -76,7 +76,5 @@
     </div>
 
     <div class="form-group col-md-12">
-        <button class="btn btn-primary" type="submit" name="new_add" ng-submit="addOrgUnit()" ng-disabled="">Add Unit</button>
+        <button class="btn btn-primary" type="submit" name="new_add" ng-click="addOrgUnit()" ng-disabled="!newOrgUnit.name || !newOrgUnit.shortName || !newOrgUnit.openingDate">Add Unit</button>
     </div>
-
-</form>
