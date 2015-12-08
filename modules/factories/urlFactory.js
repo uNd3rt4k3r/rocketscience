@@ -1,12 +1,12 @@
 //TODO: REWRITE THIS SHIT
 angular.module('rocketscienceApp')
     .factory('urlFactory', ['$http', function ($http) {
+        console.log("urlFactory init");
 
         var factoryHandler = {};
 
         factoryHandler.getManifest = function () {
            return $http.get('manifest.webapp');
-
         };
 
         factoryHandler.getAllOrgUnits = function () {

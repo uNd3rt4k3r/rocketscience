@@ -4,7 +4,7 @@ var baseURL = "";
 //var searchOrgMarkers = {};
 
 angular.module('rocketscienceApp')
-    .controller('mainCtrl', ['$scope','$http','$rootScope','$state','urlFactory', function ($scope,$http,$rootScope,$state,urlFactory) {
+    .controller('mainCtrl', ['$scope','$http','$rootScope','$state','urlFactory', 'mapFactory', function ($scope,$http,$rootScope,$state,urlFactory,mapFactory) {
         console.log("mainCtrl started");
 
         $scope.isActive = function(route) {

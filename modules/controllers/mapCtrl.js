@@ -6,12 +6,7 @@ angular.module('rocketscienceApp')
     .controller('mapCtrl', function ($scope) {
         console.log("mapCtrl started");
 
-        var mapOptions = {
-            zoom: 3,
-            center: new google.maps.LatLng(3.61,15.28),
-            mapTypeId: google.maps.MapTypeId.TERRAIN
-        }
-        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
         /*$scope.markers = [];
 
          var infoWindow = new google.maps.InfoWindow();
