@@ -17,12 +17,13 @@ angular.module('rocketscienceApp')
         $scope.setCoordinates = function () {
             if ($scope.newCoordinates.lat !== 'undefined') {
                // $scope.editUnit.coordinates = '[' +
-                $scope.newUnit.coordinates = "[" + $scope.editUnit.lng + "," + $scope.editUnit.lat + "]";
+                $scope.editUnit.coordinates = "[" + $scope.newCoordinates.lng + "," + $scope.newCoordinates.lat + "]";
             }
         }
 
         $scope.setEditUnit = function (id) {
             urlFactory.getOrgUnitById(id).then(function (response) {
+                $scope.editUnitId = id;
                 $scope.editUnit = response.data;
                 if ($scope.editUnit.coordinates) {
                     var coordinate = $scope.editUnit.coordinates;
@@ -46,6 +47,15 @@ angular.module('rocketscienceApp')
             $scope.setEditUnit($stateParams.unitId);
         }
 
+        $scope.EditOrgUnit = function () {
+            $scope.setCoordinates();
+            urlFactory.editOrgUnit($stateParams.unitId,$scope.editUnit).then(function() {
+                $.toaster({ priority : 'success', title : 'Success', message : 'Organization Unit updated'});
+                $state.go('home.search');
+            }, function(error) {
+                $.toaster({ priority : 'danger', title : 'Error', message : error.message });
+            });
+        }
 
         $scope.$on("$destroy", function(){
             mapFactory.setAddControllerActive(false);

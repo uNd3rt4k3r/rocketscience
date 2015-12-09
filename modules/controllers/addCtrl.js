@@ -27,6 +27,7 @@ angular.module('rocketscienceApp')
 
             urlFactory.addOrgUnit($scope.newOrgUnit).then(function() {
                 $.toaster({ priority : 'success', title : 'Success', message : 'New Organization Unit added'});
+
             }, function(error) {
                 $.toaster({ priority : 'danger', title : 'Error', message : error.message });
             });
