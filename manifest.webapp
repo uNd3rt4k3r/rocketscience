@@ -1,13 +1,15 @@
-{
-    "version": "0.1",
+﻿{
+    "version": "1.0",
     "name": "rocketscience",
     "description": "App for managing organizational units",
     "launch_path": "index.html",
     "icons": {
-        "48": ""
+        "16": "/assets/img/16_icon.png",
+        "48": "/assets/img/48_icon.png",
+        "128": "/assets/img/128_icon.png"
     },
     "developer": {
-        "name": "Emil Døhlen Hansen, Kristian",
+        "name": "Emil Dohlen Hansen, Kristian Oddtroen",
         "url": "http://some.dhis.url/"
     },
     "default_locale": "en",

@@ -90,9 +90,10 @@
 			'css'       :
 			{
 				'position' : 'fixed',
-				'top'      : '10px',
-				'right'    : '10px',
+				'bottom'      : '0',
+				'left'    : '50%',
 				'width'    : '300px',
+				'margin-left': '-300px',
 				'zIndex'   : 50000
 			}
 		},
@@ -143,7 +144,7 @@
 		},
 
 		'debug'        : false,
-		'timeout'      : 1500,
+		'timeout'      : 10000,
 		'stylesheet'   : null,
 		'donotdismiss' : []
 	};

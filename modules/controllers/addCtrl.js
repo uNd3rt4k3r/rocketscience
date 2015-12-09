@@ -18,21 +18,32 @@ angular.module('rocketscienceApp')
 
         $scope.newCoordinates = { 'lng' : 'undefined' , 'lat' : 'undefined' };
 
-        $scope.addOrgUnit = function() {
-
+        $scope.prepareNewUnit = function() {
             $scope.setCoordinates();
-            if ($scope.newOrgUnit.closedDate == null) {
+            if (!$scope.newOrgUnit.closedDate) {
                 delete $scope.newOrgUnit.closedDate;
             }
 
-            urlFactory.addOrgUnit($scope.newOrgUnit).then(function() {
-                $.toaster({ priority : 'success', title : 'Success', message : 'New Organization Unit added'});
+            if(!$scope.newOrgUnit.parent) {
+                addOrgUnit();
+            } else {
+                urlFactory.getOrgUnitById($scope.newOrgUnit.parent).then(function(success) {
+                    $scope.newOrgUnit.parent = success.data;
+                    addOrgUnit();
+                }, function(error) {
+                    console.log(error.data);
+                });
+            }
+        };
 
-            }, function(error) {
+        function addOrgUnit () {
+             urlFactory.addOrgUnit($scope.newOrgUnit).then(function(success) {
+                 console.log(success);
+                $.toaster({ priority : 'success', title : 'Success', message : success.data.message});
+
+             }, function(error) {
                 $.toaster({ priority : 'danger', title : 'Error', message : error.message });
-            });
-
-
+             });
         };
 
         $scope.setCoordinates = function () {
@@ -46,16 +57,13 @@ angular.module('rocketscienceApp')
         };
 
         $scope.updateParents = function () {
-            console.log(typeof $scope.newOrgUnit.OrgType);
-            console.log($scope.newOrgUnit.OrgType)
-            switch($scope.newOrgUnit.OrgType) {
+            switch($scope.newOrgUnit.level) {
                 case "2":
                 case "3":
                 case "4":
                 default:
-                    urlFactory.getAllForGivenLevel($scope.newOrgUnit.OrgType - 1).then(function (success) {
+                    urlFactory.getAllForGivenLevel($scope.newOrgUnit.level - 1).then(function (success) {
                         $scope.tmpParents = success.data.organisationUnits;
-                        console.log(success);
                     }, function (error) {
                         $.toaster({priority: 'danger', title: 'Error', message: error.data});
                     });
@@ -83,9 +91,7 @@ angular.module('rocketscienceApp')
         function getUnitTypes() {
             urlFactory.getLevels().then(function(success) {
                 $scope.tmpTypes = success.data.organisationUnitLevels;
-                console.log($scope.tmpTypes);
             }, function (error) {
-                console.log(error);
                 $.toaster({ priority : 'danger', title : 'Error', message : error.data});
             });
         };

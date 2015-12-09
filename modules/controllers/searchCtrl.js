@@ -23,19 +23,17 @@ angular.module('rocketscienceApp')
 
         $scope.initSearchCtrl = function () {
             urlFactory.getLevels().then(function (response) {
-                console.log(response);
                 $scope.searchParam.organisationUnitBorder = response.data.organisationUnitLevels;
                 //console.log($scope.organisationUnitBorder);
             }, function (error) {
-                console.log(error);
+                console.log(error.data);
             });
 
             urlFactory.getGroups().then(function (response) {
-                console.log(response);
                 $scope.searchParam.organisationUnitGroups = response.data.organisationUnitGroups;
                 //console.log($scope.organisationUnitGroups);
             }, function (error) {
-                console.log(error);
+                console.log(error.data);
             });
 
             urlFactory.getAllOrgUnits().then(function (response) {
@@ -46,19 +44,19 @@ angular.module('rocketscienceApp')
                 //console.log($scope.organisationUnits);
                 //console.log($scope.pages);
             }, function (error) {
-                console.log(error);
+                console.log(error.data);
             });
 
             //mapFactory.showAllOrgUnits();
         };
 
         $scope.setPage = function (page) {
-            urlFactory.getOrgUnitOnPageNumberWithParameters(page, getParams()).then(function (response) {
+            urlFactory.getOrgUnitOnPageNumberWithParameters(page, getParameters()).then(function (response) {
                 $scope.organisationUnits = response.data.organisationUnits;
                 $scope.pageSelected = page;
                 mapFactory.showOrgUnitsOnMap($scope.organisationUnits);
             }, function (error) {
-                console.log(error);
+                console.log(error.data);
             });
         };
 
@@ -72,24 +70,23 @@ angular.module('rocketscienceApp')
         }
 
         $scope.doSearch = function () {
-            urlFactory.getOrgUnitWithParameters(getParams()).then(function (response) {
+            urlFactory.getOrgUnitWithParameters(getParameters()).then(function (response) {
                 $scope.organisationUnits = response.data.organisationUnits;
                 $scope.pages = response.data.pager.pageCount;
                 $scope.pageSelected = 1;
                 mapFactory.showOrgUnitsOnMap($scope.organisationUnits);
             }, function (error) {
-                console.log(error);
+                console.log(error.data);
             });
         };
 
         $scope.editOrgUnit = function (orgUnitId) {
-            console.log(orgUnitId);
             $state.go('home.edit', {
                 unitId:orgUnitId
             });
         };
 
-        function getParams() {
+        function getParameters() {
             var parameters = [];
 
             if ($scope.selectedBorder) {

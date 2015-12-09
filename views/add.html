@@ -2,8 +2,8 @@
 <hr>
 
 <div class="form-group col-md-6">
-    <label>Unit Type</label>
-    <select ng-model="newOrgUnit.OrgType" ng-change="updateParents()" class="form-control"> <!-- TODO: FIX OrgType variable to a propper value???? -->
+    <label>Unit Type<i class="text-danger">*</i></label>
+    <select ng-model="newOrgUnit.level" ng-change="updateParents()" class="form-control"> <!-- TODO: FIX OrgType variable to a propper value???? -->
         <option value="">Select Org Type</option>
         <option value="{{type.level}}" ng-repeat="type in tmpTypes">{{type.name}}</option>
     </select>
@@ -99,8 +99,8 @@
 </div>
 
 <div class="form-group col-md-12">
-    <button class="btn btn-primary" type="submit" name="new_add" ng-click="addOrgUnit()"
-            ng-disabled="!newOrgUnit.name || !newOrgUnit.shortName || !newOrgUnit.openingDate">Add Unit
+    <button class="btn btn-primary" type="submit" name="new_add" ng-click="prepareNewUnit()"
+            ng-disabled="!newOrgUnit.name || !newOrgUnit.shortName || !newOrgUnit.openingDate || !newOrgUnit.level">Add Unit
     </button>
 </div>
 </div>
