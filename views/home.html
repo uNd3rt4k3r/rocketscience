@@ -5,13 +5,13 @@
         </div>
         <div class="col-md-6">
             <ul class="nav nav-tabs">
-                <li id="tab-search" ng-click="setState('home.search')" class="active"><a data-toggle="pill">Search</a></li>
-                <li id="tab-add"  ng-click="setState('home.add')"><a data-toggle="pill">Add</a></li>
-                <li id="tab-edit"  ng-click="setState('home.edit')"><a data-toggle="pill">Edit</a></li>
+                <li ng-click="setState('home.search')" ng-class="getState() == 'home.search' ? 'active': ''"><a data-toggle="pill">Search</a></li>
+                <li ng-click="setState('home.add')" ng-class="getState() == 'home.add' ? 'active': ''"><a data-toggle="pill">Add</a></li>
+                <li ng-click="setState('home.edit')" ng-class="getState() == 'home.edit' ? 'active': ''"><a data-toggle="pill">Edit</a></li>
             </ul>
-                <div class="action-content">
+            <div class="action-content">
                 <div ui-view name="action"></div>
-                </div>
+            </div>
         </div>
     </div>
 </div>

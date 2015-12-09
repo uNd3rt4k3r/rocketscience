@@ -25,6 +25,10 @@ angular.module('rocketscienceApp')
             $state.go(action);
         };
 
+        $scope.getState = function(){
+            return $state.current.name;
+        }
+
         $scope.setBaseUrlAndInitState = function() {
              urlFactory.getManifest().then(function (response) {
                  baseURL = response.data.activities.dhis.href + "/api";
