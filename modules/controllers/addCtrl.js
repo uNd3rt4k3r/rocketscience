@@ -45,6 +45,51 @@ angular.module('rocketscienceApp')
             mapFactory.putSingleMarkerAsCurLocation();
         };
 
+        $scope.updateParents = function () {
+            console.log(typeof $scope.newOrgUnit.OrgType);
+            console.log($scope.newOrgUnit.OrgType)
+            switch($scope.newOrgUnit.OrgType) {
+                case "2":
+                case "3":
+                case "4":
+                default:
+                    urlFactory.getAllForGivenLevel($scope.newOrgUnit.OrgType - 1).then(function (success) {
+                        $scope.tmpParents = success.data.organisationUnits;
+                        console.log(success);
+                    }, function (error) {
+                        $.toaster({priority: 'danger', title: 'Error', message: error.data});
+                    });
+                break;
+                case "1":
+                case "":
+                    $scope.tmpParents = "";
+                break;
+            }
+
+        };
+
+        $scope.initAddCtrl = function () {
+            if (baseURL !== "") {
+                getUnitTypes();
+            } else {
+                urlFactory.getManifest().then(function (response) {
+                    baseURL = response.data.activities.dhis.href + "/api";
+                    getUnitTypes();
+                });
+            };
+
+        };
+
+        function getUnitTypes() {
+            urlFactory.getLevels().then(function(success) {
+                $scope.tmpTypes = success.data.organisationUnitLevels;
+                console.log($scope.tmpTypes);
+            }, function (error) {
+                console.log(error);
+                $.toaster({ priority : 'danger', title : 'Error', message : error.data});
+            });
+        };
+
 
         $scope.$on("$destroy", function(){
             mapFactory.setAddControllerActive(false);
@@ -55,4 +100,5 @@ angular.module('rocketscienceApp')
 
         mapFactory.currentCtrlScope = $scope;
 
+        $scope.initAddCtrl();
     }]);

@@ -79,7 +79,7 @@ angular.module('rocketscienceApp')
             $state.go('home.edit', {
                 unitId:orgUnitId
             });
-        }
+        };
 
         function getParams() {
             var parameters = [];
@@ -111,8 +111,7 @@ angular.module('rocketscienceApp')
                 baseURL = response.data.activities.dhis.href + "/api";
                 $scope.initSearchCtrl()
             });
-        }
-        ;
+        };
 
         mapFactory.currentCtrlScope = $scope;
 

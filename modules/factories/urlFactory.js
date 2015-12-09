@@ -41,6 +41,10 @@ angular.module('rocketscienceApp')
             return $http.get(baseURL + '/organisationUnitGroups.json');
         };
 
+        factoryHandler.getAllForGivenLevel = function (level) {
+            return $http.get(baseURL + '/organisationUnits.json?fields=name,id&paging=false&level=' + level);
+        };
+
         factoryHandler.getOrgUnitWithParameters = function (parameters) {
             return $http.get(baseURL + '/organisationUnits.json?' + createFilter(parameters));
         };
