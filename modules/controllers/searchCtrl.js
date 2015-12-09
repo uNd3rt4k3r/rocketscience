@@ -63,6 +63,12 @@ angular.module('rocketscienceApp')
 
         };
 
+        $scope.whatClassIsIt= function(index){
+            if(index == $scope.pageSelected){
+                return "active";
+            }
+        }
+
         $scope.doSearch = function () {
             urlFactory.getOrgUnitWithParameters(getParams()).then(function (response) {
                 $scope.organisationUnits = response.data.organisationUnits;

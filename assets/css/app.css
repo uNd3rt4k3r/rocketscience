@@ -67,3 +67,8 @@ textarea{
 .list-group-item:hover{
     background:#f8f8f8;
 }
+
+.notVisible{
+    display:none;
+    backround:red;
+}

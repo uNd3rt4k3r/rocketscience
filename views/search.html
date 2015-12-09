@@ -28,9 +28,16 @@
     </ul>
 
     <ul class="pagination pagination-sm">
-        <li ng-class="($index + 1) == pageSelected ? 'active': ''" ng-repeat="n in [].constructor(pages) track by $index" ng-click="setPage($index + 1)">
+        <li  ng-class="{ disabled : pageSelected == 1 }">
+            <a  ng-click="setPage(1)">«</a>
+        </li>
+        <li ng-class="whatClassIsIt($index + 1)" ng-repeat="n in [].constructor(pages) track by $index" ng-click="setPage($index + 1)">
             <a>{{$index+1}}</a>
         </li>
+        <li  ng-class="{ disabled : pageSelected == pages }">
+            <a  ng-click="setPage(pages)">»</a>
+        </li>
+
     </ul>
 </div>
 

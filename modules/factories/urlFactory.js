@@ -4,13 +4,13 @@ angular.module('rocketscienceApp')
         console.log("urlFactory init");
 
         var factoryHandler = {};
-
+        var pageSize = "pageSize=12";
         factoryHandler.getManifest = function () {
            return $http.get('manifest.webapp');
         };
 
         factoryHandler.getAllOrgUnits = function () {
-            return $http.get(baseURL + "/organisationUnits.json");
+            return $http.get(baseURL + "/organisationUnits.json?"+pageSize);
         };
 
         factoryHandler.getOrgUnitById = function (id) {
@@ -18,11 +18,11 @@ angular.module('rocketscienceApp')
         };
 
         factoryHandler.getOrgUnitOnPageNumber = function (page) {
-            return $http.get(baseURL + '/organisationUnits.json?page=' + page);
+            return $http.get(baseURL + '/organisationUnits.json?page=' + page + "&"+ pageSize);
         };
 
         factoryHandler.getOrgUnitOnPageNumberWithParameters = function (page, parameters) {
-            return $http.get(baseURL + '/organisationUnits.json?page=' + page + "&" + createFilter(parameters));
+            return $http.get(baseURL + '/organisationUnits.json?page=' + page + "&" + createFilter(parameters) + "&" +pageSize);
         };
 
         factoryHandler.addOrgUnit = function (newOrgUnit) {
@@ -46,7 +46,7 @@ angular.module('rocketscienceApp')
         };
 
         factoryHandler.getOrgUnitWithParameters = function (parameters) {
-            return $http.get(baseURL + '/organisationUnits.json?' + createFilter(parameters));
+            return $http.get(baseURL + '/organisationUnits.json?' + createFilter(parameters) + "&"+ pageSize);
         };
 
         function createFilter(parameters) {
