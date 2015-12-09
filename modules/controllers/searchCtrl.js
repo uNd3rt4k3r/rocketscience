@@ -64,7 +64,7 @@ angular.module('rocketscienceApp')
             if(index == $scope.pageSelected){
                 return "active";
             }
-            if((index - $scope.pageSelected) > 5 || $scope.pageSelected > index){
+            if((index - $scope.pageSelected) >= 10 || $scope.pageSelected > index){
                 return "notVisible";
             }
         }
