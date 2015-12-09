@@ -60,12 +60,14 @@ angular.module('rocketscienceApp')
             }, function (error) {
                 console.log(error);
             });
-
         };
 
         $scope.whatClassIsIt= function(index){
             if(index == $scope.pageSelected){
                 return "active";
+            }
+            if((index - $scope.pageSelected) > 5 || $scope.pageSelected > index){
+                return "notVisible";
             }
         }
 

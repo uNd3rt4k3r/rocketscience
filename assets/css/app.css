@@ -69,6 +69,5 @@ textarea{
 }
 
 .notVisible{
-    display:none;
-    backround:red;
+    display:none !important;
 }
