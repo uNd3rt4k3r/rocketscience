@@ -16,7 +16,7 @@ angular.module('rocketscienceApp')
 
         $scope.setCoordinates = function () {
             if ($scope.newCoordinates.lat !== 'undefined') {
-               // $scope.editUnit.coordinates = '[' +
+                // $scope.editUnit.coordinates = '[' +
                 $scope.editUnit.coordinates = "[" + $scope.newCoordinates.lng + "," + $scope.newCoordinates.lat + "]";
             }
         }
@@ -34,10 +34,11 @@ angular.module('rocketscienceApp')
                     var lat = coordinate[1];
                     $scope.newCoordinates.lat = lat;
                     $scope.newCoordinates.lng = lng;
-                    var myLatLng = {initEditMarker:{lat: parseFloat(lat), lng: parseFloat(lng)}};
+                    var myLatLng = {initEditMarker: {lat: parseFloat(lat), lng: parseFloat(lng)}};
                     mapFactory.putSingleMarker(myLatLng);
                 }
-                console.log(response.data);
+                $scope.getUnitTypes();
+                console.log($scope.editUnit);
             }, function (error) {
                 console.log(error);
             });
@@ -47,17 +48,63 @@ angular.module('rocketscienceApp')
             $scope.setEditUnit($stateParams.unitId);
         }
 
-        $scope.EditOrgUnit = function () {
+        $scope.editOrgUnit = function () {
+            console.log($scope.editUnit.parent);
+
+            if ($scope.editUnit.parent.id) {
+                urlFactory.getOrgUnitById($scope.editUnit.parent.id).then(function (response) {
+                    $scope.editUnit.parent = response.data;
+                    $scope.saveChanges();
+                }, function (error) {
+                    console.log(error.data);
+                });
+            } else {
+                if($scope.editUnit.parent) {
+                    delete $scope.editUnit.parent;
+                }
+                $scope.saveChanges();
+            }
+        }
+
+
+        $scope.saveChanges = function () {
             $scope.setCoordinates();
-            urlFactory.editOrgUnit($stateParams.unitId,$scope.editUnit).then(function() {
-                $.toaster({ priority : 'success', title : 'Success', message : 'Organization Unit updated'});
+            urlFactory.editOrgUnit($stateParams.unitId, $scope.editUnit).then(function () {
+                $.toaster({priority: 'success', title: 'Success', message: 'Organization Unit updated'});
                 $state.go('home.search');
-            }, function(error) {
-                $.toaster({ priority : 'danger', title : 'Error', message : error.message });
+            }, function (error) {
+                $.toaster({priority: 'danger', title: 'Error', message: error.message});
             });
         }
 
-        $scope.$on("$destroy", function(){
+        $scope.getUnitTypes = function () {
+            urlFactory.getLevels().then(function (response) {
+                $scope.allTypes = response.data.organisationUnitLevels;
+            }, function (error) {
+                $.toaster({priority: 'danger', title: 'Error', message: error.data});
+            });
+        };
+
+        $scope.updateParents = function () {
+            switch ($scope.editUnit.level) {
+                case "2":
+                case "3":
+                case "4":
+                default:
+                    urlFactory.getAllForGivenLevel($scope.editUnit.level - 1).then(function (response) {
+                        $scope.allParents = response.data.organisationUnits;
+                    }, function (error) {
+                        $.toaster({priority: 'danger', title: 'Error', message: error.data});
+                    });
+                    break;
+                case "1":
+                case "":
+                    $scope.allParents = "";
+                    break;
+            }
+
+        };
+        $scope.$on("$destroy", function () {
             mapFactory.setAddControllerActive(false);
             mapFactory.clearAllMarkers();
         });
