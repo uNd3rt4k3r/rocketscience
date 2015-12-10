@@ -164,10 +164,14 @@ angular.module('rocketscienceApp')
         };
 
         factoryHandler.add_marker = function(myLatlng, orgUnit) {
-            var marker = new google.maps.Marker({
+            var marker = new MarkerWithLabel({
                 position: myLatlng,
                 map: map,
-                title: orgUnit.name
+                title: orgUnit.name,
+                labelContent: orgUnit.name,
+                labelAnchor: new google.maps.Point(50, -2),
+                labelClass: "markerStyle", // the CSS class for the label
+                labelStyle: {opacity: 0.75}
             });
             marker.setClickable(true);
             marker.setAnimation(google.maps.Animation.DROP);
