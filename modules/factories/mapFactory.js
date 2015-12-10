@@ -233,6 +233,17 @@ angular.module('rocketscienceApp')
                 marker.setClickable(true);
             });
 
+            google.maps.event.addListener(marker, 'mouseover', function(event) {
+                    marker.labelClass = "markerStyleHover";
+                    marker.label.setStyles();
+            });
+
+            google.maps.event.addListener(marker, 'mouseout', function(event) {
+                    marker.labelClass = "markerStyle";
+                    marker.label.setStyles();
+            });
+
+
             return marker;
             //markers.push(marker);
         };

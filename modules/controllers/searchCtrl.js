@@ -30,31 +30,28 @@ angular.module('rocketscienceApp')
             urlFactory.getLevels().then(function (response) {
                 $scope.searchParam.organisationUnitBorder = response.data.organisationUnitLevels;
                 //console.log($scope.organisationUnitBorder);
-                $scope.doSearch();
+
+                urlFactory.getGroups().then(function (response) {
+                    $scope.searchParam.organisationUnitGroups = response.data.organisationUnitGroups;
+                    //console.log($scope.organisationUnitGroups);
+
+                    urlFactory.getAllOrgUnits().then(function (response) {
+                        $scope.organisationUnits = response.data.organisationUnits;
+                        $scope.pages = response.data.pager.pageCount;
+                        $scope.pageSelected = 1;
+                        mapFactory.showOrgUnitsOnMap($scope.organisationUnits);
+                        $scope.doSearch();
+                        //console.log($scope.organisationUnits);
+                        //console.log($scope.pages);
+                    }, function (error) {
+                        console.log(error.data);
+                    });
+                }, function (error) {
+                    console.log(error.data);
+                });
             }, function (error) {
                 console.log(error.data);
             });
-
-            urlFactory.getGroups().then(function (response) {
-                $scope.searchParam.organisationUnitGroups = response.data.organisationUnitGroups;
-                //console.log($scope.organisationUnitGroups);
-                $scope.doSearch();
-            }, function (error) {
-                console.log(error.data);
-            });
-
-            urlFactory.getAllOrgUnits().then(function (response) {
-                $scope.organisationUnits = response.data.organisationUnits;
-                $scope.pages = response.data.pager.pageCount;
-                $scope.pageSelected = 1;
-                mapFactory.showOrgUnitsOnMap($scope.organisationUnits);
-                $scope.doSearch();
-                //console.log($scope.organisationUnits);
-                //console.log($scope.pages);
-            }, function (error) {
-                console.log(error.data);
-            });
-
 
             //mapFactory.showAllOrgUnits();
         };
