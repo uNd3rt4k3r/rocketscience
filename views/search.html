@@ -7,7 +7,8 @@
     <label>Border Options</label>
     <select ng-model="selectedBorder" ng-change="doSearch()" class="form-control">
         <option value="">Select Border</option>
-        <option value="{{border.level}}" ng-repeat="border in searchParam.organisationUnitBorder">{{border.name}}</option>
+        <option value="{{border.level}}" ng-repeat="border in searchParam.organisationUnitBorder">{{border.name}}
+        </option>
     </select>
 </div>
 
@@ -15,7 +16,9 @@
     <label>Unit Group</label>
     <select ng-model="selectedGroup" ng-change="doSearch()" class="form-control">
         <option value="">Select Unit Group</option>
-        <option value="{{unitGroup.id}}" ng-repeat="unitGroup in searchParam.organisationUnitGroups">{{unitGroup.name}}</option>
+        <option value="{{unitGroup.id}}" ng-repeat="unitGroup in searchParam.organisationUnitGroups">
+            {{unitGroup.name}}
+        </option>
     </select>
 </div>
 
@@ -23,19 +26,20 @@
     <label>Results</label>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="orgunit in organisationUnits">
-            <a ng-click="editOrgUnit(orgunit.id)" >{{orgunit.name}}</a>
+            <a ng-click="editOrgUnit(orgunit.id)">{{orgunit.name}}</a>
         </li>
     </ul>
 
     <ul class="pagination pagination-sm">
-        <li  ng-class="{ disabled : pageSelected == 1 }">
-            <a  ng-click="setPage(1)">«</a>
+        <li ng-class="{ disabled : pageSelected == 1 }">
+            <a ng-click="setPage(1)">«</a>
         </li>
-        <li ng-class="whatClassIsIt($index + 1)" ng-repeat="n in [].constructor(pages) track by $index" ng-click="setPage($index + 1)">
+        <li ng-class="whatClassIsIt($index + 1)" ng-repeat="n in [].constructor(pages) track by $index"
+            ng-click="setPage($index + 1)">
             <a>{{$index+1}}</a>
         </li>
-        <li  ng-class="{ disabled : pageSelected == pages }">
-            <a  ng-click="setPage(pages)">»</a>
+        <li ng-class="{ disabled : pageSelected == pages }">
+            <a ng-click="setPage(pages)">»</a>
         </li>
 
     </ul>
