@@ -50,20 +50,18 @@ angular.module('rocketscienceApp')
         }
 
         $scope.editOrgUnit = function () {
-            console.log($scope.editUnit.parent);
 
-            if ($scope.editUnit.parent.id) {
+            if($scope.editUnit.level == 1){
+               delete $scope.editUnit.parent;
+               //console.log($scope.editUnit);
+               $scope.saveChanges();
+            }else{
                 urlFactory.getOrgUnitById($scope.editUnit.parent.id).then(function (response) {
                     $scope.editUnit.parent = response.data;
                     $scope.saveChanges();
                 }, function (error) {
                     console.log(error.data);
                 });
-            } else {
-                if($scope.editUnit.parent) {
-                    delete $scope.editUnit.parent;
-                }
-                $scope.saveChanges();
             }
         }
 
