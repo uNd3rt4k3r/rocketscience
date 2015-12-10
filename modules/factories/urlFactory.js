@@ -33,6 +33,9 @@ angular.module('rocketscienceApp')
             return $http.put(baseURL + '/organisationUnits/' + id, editedOrgUnit);
         };
 
+        factoryHandler.deleteOrgUnit = function (id) {
+            return $http.delete(baseURL + '/organisationUnits/' + id);
+        };
         factoryHandler.getLevels = function () {
             return $http.get(baseURL + '/organisationUnitLevels.json?fields=name,level');
         };

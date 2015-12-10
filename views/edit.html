@@ -99,7 +99,9 @@
 
     <div class="form-group col-md-12">
         <button class="btn btn-primary" type="submit" name="edit_add" ng-click="editOrgUnit()"
-                ng-disabled="!editUnit.name || !editUnit.shortName || !editUnit.openingDate">Edit Unit
+                ng-disabled="!editUnit.name || !editUnit.shortName || !editUnit.openingDate">Save Changes
+        </button>
+        <button class="btn btn-danger" type="submit" name="edit_delete" ng-click="deleteOrgUnit()">Delete Unit
         </button>
     </div>
 </div>

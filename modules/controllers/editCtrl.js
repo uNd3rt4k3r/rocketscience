@@ -50,12 +50,11 @@ angular.module('rocketscienceApp')
         }
 
         $scope.editOrgUnit = function () {
-
-            if($scope.editUnit.level == 1){
-               delete $scope.editUnit.parent;
-               //console.log($scope.editUnit);
-               $scope.saveChanges();
-            }else{
+            if ($scope.editUnit.level == 1) {
+                $scope.editUnit.parent = [];
+                console.log($scope.editUnit);
+                $scope.saveChanges();
+            } else {
                 urlFactory.getOrgUnitById($scope.editUnit.parent.id).then(function (response) {
                     $scope.editUnit.parent = response.data;
                     $scope.saveChanges();
@@ -64,8 +63,14 @@ angular.module('rocketscienceApp')
                 });
             }
         }
-
-
+        $scope.deleteOrgUnit = function() {
+            urlFactory.deleteOrgUnit($scope.editUnit.id).then(function (response) {
+                $.toaster({priority: 'success', title: 'Success', message: 'Organization Unit deleted'});
+                $state.go('home.search');
+            }, function (error) {
+                console.log(error.data);
+            });
+        }
         $scope.saveChanges = function () {
             $scope.setCoordinates();
             urlFactory.editOrgUnit($stateParams.unitId, $scope.editUnit).then(function () {
