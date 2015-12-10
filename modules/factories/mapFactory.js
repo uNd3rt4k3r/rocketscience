@@ -1,41 +1,56 @@
 angular.module('rocketscienceApp')
-    .factory('mapFactory', ['urlFactory', function (urlFactory) {
+    .factory('mapFactory', ['$state','urlFactory', function ($state,urlFactory) {
         console.log("mapFactory init");
 
         var factoryHandler = {};
 
+        //Variables for controllers
         factoryHandler.currentCtrlScope;
 
+        var addControllerActive = false;
+        var searchControllerActive = false;
+
+        factoryHandler.setAddControllerActive = function(value) {
+            addControllerActive = value;
+        };
+
+        factoryHandler.setSearchControllerActive = function(value) {
+            searchControllerActive = value;
+        };
+
+        //map
         var markers = [];
+
         var map;
+
         var mapOptions = {
             zoom: 3,
             center: new google.maps.LatLng(3.61,15.28),
             mapTypeId: google.maps.MapTypeId.TERRAIN
         };
+
         //Variables for drag-drop instance
         var markerOldLng; //remembers old possision of a draged marker
         var markerOldLat;
 
-        //Variables for add-controller
         var singleMarker;
-        var addControllerActive = false;
 
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
         map.addListener('click', function(event) {
             if (addControllerActive) {
                 factoryHandler.putSingleMarker(event);
+            } else if (searchControllerActive) {
+                $state.go('home.add', {
+                    newCords:event
+                });
             }
         });
-
-        factoryHandler.setAddControllerActive = function(value) {
-            addControllerActive = value;
-        };
 
         factoryHandler.putSingleMarker = function(position) {
             var lat;
             var lng;
+            var markerLabelText = 'New Org. Unit'
 
             if (position.hasOwnProperty('latLng')) { //on map click
                 lat = position.latLng.lat();
@@ -43,6 +58,7 @@ angular.module('rocketscienceApp')
             } else if (position.hasOwnProperty('initEditMarker')) { //current location
                 lat = position.initEditMarker.lat;
                 lng = position.initEditMarker.lng;
+                markerLabelText = "Drag to edit"
             } else { //current location
                 lat = position.coords.latitude;
                 lng = position.coords.longitude;
@@ -54,11 +70,14 @@ angular.module('rocketscienceApp')
                 singleMarker.setMap(null);
             }
 
-            singleMarker = new google.maps.Marker({
+            singleMarker = new MarkerWithLabel({
                 position: myLatlng,
                 map: map,
-                title: 'New Organization Unit',
-                draggable: true
+                draggable: true,
+                labelContent: markerLabelText,
+                labelAnchor: new google.maps.Point(50, -2),
+                labelClass: "markerStyle", // the CSS class for the label
+                labelStyle: {opacity: 0.75}
             });
 
             map.panTo(myLatlng);
@@ -167,7 +186,7 @@ angular.module('rocketscienceApp')
             var marker = new MarkerWithLabel({
                 position: myLatlng,
                 map: map,
-                title: orgUnit.name,
+                title: "Drag to edit position. Click to edit info.",
                 labelContent: orgUnit.name,
                 labelAnchor: new google.maps.Point(50, -2),
                 labelClass: "markerStyle", // the CSS class for the label
@@ -179,8 +198,9 @@ angular.module('rocketscienceApp')
 
 
             google.maps.event.addListener(marker, 'click', function (event) {
-                //TODO: Show info
-                console.log("Not implemented");
+                $state.go('home.edit', {
+                    unitId:orgUnit.id
+                });
             });
 
             //marker.infowindow = infowindow;
@@ -217,10 +237,6 @@ angular.module('rocketscienceApp')
                 console.log(error);
             });
         };
-
-        factoryHandler.addSingleMarker = function() {
-
-        }
 
 
 

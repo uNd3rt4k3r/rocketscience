@@ -129,7 +129,7 @@ angular.module('rocketscienceApp')
 
         mapFactory.currentCtrlScope = $scope;
 
-
+        mapFactory.setSearchControllerActive(true);
 
 
     }]);

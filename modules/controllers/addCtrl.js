@@ -95,6 +95,10 @@ angular.module('rocketscienceApp')
         function getUnitTypes() {
             urlFactory.getLevels().then(function(success) {
                 $scope.tmpTypes = success.data.organisationUnitLevels;
+
+                if ($stateParams.newCords) {
+                    mapFactory.putSingleMarker($stateParams.newCords);
+                }
             }, function (error) {
                 $.toaster({ priority : 'danger', title : 'Error', message : error.data});
             });

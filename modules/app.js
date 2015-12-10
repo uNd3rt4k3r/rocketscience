@@ -34,6 +34,9 @@ angular.module('rocketscienceApp', [
                     templateUrl: '../views/add.html',
                     controller: 'addCtrl'
                 }
+            },
+            params: {
+                newCords: null
             }
         })
         .state('home.edit', {
