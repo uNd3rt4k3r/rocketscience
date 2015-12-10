@@ -93,7 +93,7 @@
 				'bottom'      : '0',
 				'left'    : '50%',
 				'width'    : '300px',
-				'margin-left': '-300px',
+				'margin-left': '-150px',
 				'zIndex'   : 50000
 			}
 		},

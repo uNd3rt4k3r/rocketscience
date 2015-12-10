@@ -22,6 +22,9 @@ angular.module('rocketscienceApp', [
                     templateUrl: '../views/search.html',
                     controller: 'searchCtrl'
                 }
+            },
+            params: {
+                unitName: null
             }
         })
         .state('home.add', {
@@ -43,6 +46,6 @@ angular.module('rocketscienceApp', [
             },
             params: {
                 unitId: null
-            },
+            }
         });
 });

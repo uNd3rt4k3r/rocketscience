@@ -43,16 +43,17 @@ angular.module('rocketscienceApp')
         };
 
         function addOrgUnit () {
+            console.log($scope.newOrgUnit);
              urlFactory.addOrgUnit($scope.newOrgUnit).then(function(success) {
-                 console.log(success);
                  $.toaster({ priority : 'success', title : 'Success', message : success.data.message});
+                 showInSearch($scope.newOrgUnit.name);
              }, function(error) {
                 $.toaster({ priority : 'danger', title : 'Error', message : error.message });
              });
         };
 
         $scope.setCoordinates = function () {
-          if (!$scope.newCoordinates.lat) {
+          if ($scope.newCoordinates.lat) {
               $scope.newOrgUnit.coordinates = "[" + $scope.newCoordinates.lng + "," + $scope.newCoordinates.lat + "]";
           }
         };
@@ -99,7 +100,7 @@ angular.module('rocketscienceApp')
             });
         }
 
-        $scope.validateEmail = function () {;
+        $scope.validateEmail = function () {
             if (!$scope.newOrgUnit.email) {
                 $scope.validEmail = true;
             } else {
@@ -120,9 +121,10 @@ angular.module('rocketscienceApp')
             mapFactory.clearAllMarkers();
         });
 
-        $scope.resetForm = function () {
-            //TODO
-            console.log("Not implemented");
+        function showInSearch(name) {
+            $state.go('home.search', {
+                unitName:name
+            });
         }
 
         mapFactory.setAddControllerActive(true);
