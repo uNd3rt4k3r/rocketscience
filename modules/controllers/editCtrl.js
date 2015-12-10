@@ -45,6 +45,7 @@ angular.module('rocketscienceApp')
         }
 
         if ($stateParams.unitId != null) {
+            mapFactory.setEditControllerActive(true);
             $scope.setEditUnit($stateParams.unitId);
         }
 
@@ -105,11 +106,10 @@ angular.module('rocketscienceApp')
 
         };
         $scope.$on("$destroy", function () {
-            mapFactory.setAddControllerActive(false);
+            mapFactory.setEditControllerActive(false);
             mapFactory.clearAllMarkers();
         });
 
 
-        mapFactory.setAddControllerActive(true);
         mapFactory.currentCtrlScope = $scope;
     }]);

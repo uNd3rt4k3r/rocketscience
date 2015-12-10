@@ -9,6 +9,8 @@ angular.module('rocketscienceApp')
 
         var addControllerActive = false;
         var searchControllerActive = false;
+        var editControllerActive = false;
+
 
         factoryHandler.setAddControllerActive = function(value) {
             addControllerActive = value;
@@ -16,6 +18,10 @@ angular.module('rocketscienceApp')
 
         factoryHandler.setSearchControllerActive = function(value) {
             searchControllerActive = value;
+        };
+
+        factoryHandler.setEditControllerActive = function(value) {
+            editControllerActive = value;
         };
 
         //map
@@ -38,7 +44,7 @@ angular.module('rocketscienceApp')
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
         map.addListener('click', function(event) {
-            if (addControllerActive) {
+            if (addControllerActive || editControllerActive) {
                 factoryHandler.putSingleMarker(event);
             } else if (searchControllerActive) {
                 $state.go('home.add', {
@@ -52,13 +58,14 @@ angular.module('rocketscienceApp')
             var lng;
             var markerLabelText = 'New Org. Unit'
 
+            if (editControllerActive) markerLabelText = 'Drag to edit';
+
             if (position.hasOwnProperty('latLng')) { //on map click
                 lat = position.latLng.lat();
                 lng = position.latLng.lng();
             } else if (position.hasOwnProperty('initEditMarker')) { //current location
                 lat = position.initEditMarker.lat;
                 lng = position.initEditMarker.lng;
-                markerLabelText = "Drag to edit"
             } else { //current location
                 lat = position.coords.latitude;
                 lng = position.coords.longitude;

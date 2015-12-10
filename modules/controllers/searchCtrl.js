@@ -118,6 +118,11 @@ angular.module('rocketscienceApp')
             mapFactory.clearAllMarkers();
         });
 
+        $scope.$on("$destroy", function(){
+            mapFactory.setSearchControllerActive(false);
+            mapFactory.clearAllMarkers();
+        });
+
         if (baseURL !== "") {
             $scope.initSearchCtrl()
         } else {
