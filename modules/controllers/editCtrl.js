@@ -51,7 +51,6 @@ angular.module('rocketscienceApp')
 
         $scope.editOrgUnit = function () {
             if ($scope.editUnit.level == 1) {
-                $scope.editUnit.parent = [];
                 console.log($scope.editUnit);
                 $scope.saveChanges();
             } else {
