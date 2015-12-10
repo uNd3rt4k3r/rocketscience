@@ -25,6 +25,12 @@ angular.module('rocketscienceApp')
         $scope.newCoordinates = { 'lng' : 'undefined' , 'lat' : 'undefined' };
 
         $scope.prepareNewUnit = function() {
+            if ($scope.newOrgUnit.level != 1 && !$scope.newOrgUnit.parent) {
+                if(!confirm("If you do not select a parent for your organization unit, the type will be set to 'national'. Are you sure you want to continue?")) {
+                    return;
+                }
+            }
+
             $scope.setCoordinates();
             if (!$scope.newOrgUnit.closedDate) {
                 delete $scope.newOrgUnit.closedDate;
@@ -130,6 +136,8 @@ angular.module('rocketscienceApp')
                 unitName:name
             });
         }
+
+
 
         mapFactory.setAddControllerActive(true);
 
