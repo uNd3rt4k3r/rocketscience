@@ -3,7 +3,7 @@
 
 <div class="form-group col-md-6">
     <label>Unit Type<i class="text-danger">*</i></label>
-    <select ng-model="newOrgUnit.level" ng-change="updateParents()" class="form-control"> <!-- TODO: FIX OrgType variable to a propper value???? -->
+    <select ng-model="newOrgUnit.level" ng-change="updateParents()" class="form-control">
         <option value="">Select Org Type</option>
         <option value="{{type.level}}" ng-repeat="type in tmpTypes">{{type.name}}</option>
     </select>
@@ -20,8 +20,6 @@
 <div class="form-group col-md-6">
     <label>Name <i class="text-danger">*</i></label>
     <input id="new_name" type="text" class="form-control" placeholder="Name" ng-model="newOrgUnit.name">
-
-    <p ng-show="newOrgUnit.name.$error.required">The name is required.</p>
 </div>
 
 <div class="form-group col-md-6">
@@ -31,8 +29,7 @@
 
 <div class="form-group col-md-12">
     <label>Description</label>
-    <textarea id="new_description" class="form-control" rows="3" placeholder="Description"
-              ng-model="newOrgUnit.description"></textarea>
+    <textarea id="new_description" class="form-control" rows="3" placeholder="Description" ng-model="newOrgUnit.description"></textarea>
 </div>
 
 <div class="form-group col-md-6">
@@ -42,7 +39,8 @@
 
 <div class="form-group col-md-6">
     <label>URL</label>
-    <input id="new_url" type="text" class="form-control" placeholder="URL" ng-model="newOrgUnit.url">
+    <input id="new_url" type="text" ng-change="validateUrl()"  class="form-control" placeholder="URL" ng-model="newOrgUnit.url">
+    <span style="color:red" ng-show="!validUrl">Not a valid URL!</span>
 </div>
 
 <div class="form-group col-md-12">
@@ -90,7 +88,8 @@
 </div>
 <div class="form-group col-md-6">
     <label>Email</label>
-    <input id="new_email" type="text" class="form-control" ng-model="newOrgUnit.email">
+    <input id="new_email" ng-change="validateEmail()" name="new_mail" type="text" class="form-control" ng-model="newOrgUnit.email">
+    <span style="color:red" ng-show="!validEmail">Not a valid email address!</span>
 </div>
 
 <div class="form-group col-md-6">
@@ -100,7 +99,6 @@
 
 <div class="form-group col-md-12">
     <button class="btn btn-primary" type="submit" name="new_add" ng-click="prepareNewUnit()"
-            ng-disabled="!newOrgUnit.name || !newOrgUnit.shortName || !newOrgUnit.openingDate || !newOrgUnit.level">Add Unit
+            ng-disabled="!newOrgUnit.name || !newOrgUnit.shortName || !newOrgUnit.openingDate || !newOrgUnit.level || !validEmail || !validUrl">Add Unit
     </button>
-</div>
 </div>
