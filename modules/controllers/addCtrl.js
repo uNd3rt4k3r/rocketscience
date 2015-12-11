@@ -50,6 +50,7 @@ angular.module('rocketscienceApp')
         };
 
         function addOrgUnit () {
+            console.log($scope.newOrgUnit);
              urlFactory.addOrgUnit($scope.newOrgUnit).then(function(success) {
                  $.toaster({ priority : 'success', title : 'Success', message : success.data.message});
                  showInSearch($scope.newOrgUnit.name);
