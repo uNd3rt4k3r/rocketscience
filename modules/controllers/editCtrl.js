@@ -25,7 +25,10 @@ angular.module('rocketscienceApp')
             urlFactory.getOrgUnitById(id).then(function (response) {
                 $scope.editUnitId = id;
                 $scope.editUnit = response.data;
-                console.log($scope.editunit);
+                $scope.editUnit.openingDate = new Date($scope.editUnit.openingDate);
+                if($scope.editUnit.closedDate){
+                    $scope.editUnit.closedDate = new Date($scope.editUnit.closedDate);
+                }
                 if ($scope.editUnit.coordinates) {
                     var coordinate = $scope.editUnit.coordinates;
                     coordinate = coordinate.replace("[", "");
@@ -73,6 +76,7 @@ angular.module('rocketscienceApp')
         }
         $scope.saveChanges = function () {
             $scope.setCoordinates();
+            console.log($scope.editUnit)
             urlFactory.editOrgUnit($stateParams.unitId, $scope.editUnit).then(function () {
                 $.toaster({priority: 'success', title: 'Success', message: 'Organization Unit updated'});
                 $state.go('home.search');
