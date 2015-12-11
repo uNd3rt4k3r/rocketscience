@@ -32,6 +32,7 @@ angular.module('rocketscienceApp')
             }
 
             $scope.setCoordinates();
+
             if (!$scope.newOrgUnit.closedDate) {
                 delete $scope.newOrgUnit.closedDate;
             }
@@ -49,7 +50,6 @@ angular.module('rocketscienceApp')
         };
 
         function addOrgUnit () {
-            console.log($scope.newOrgUnit);
              urlFactory.addOrgUnit($scope.newOrgUnit).then(function(success) {
                  $.toaster({ priority : 'success', title : 'Success', message : success.data.message});
                  showInSearch($scope.newOrgUnit.name);
@@ -59,7 +59,7 @@ angular.module('rocketscienceApp')
         };
 
         $scope.setCoordinates = function () {
-          if ($scope.newCoordinates.lat) {
+          if ($scope.newCoordinates.lat != 'undefined') {
               $scope.newOrgUnit.coordinates = "[" + $scope.newCoordinates.lng + "," + $scope.newCoordinates.lat + "]";
           }
         };
