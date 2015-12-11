@@ -25,6 +25,7 @@ angular.module('rocketscienceApp')
             urlFactory.getOrgUnitById(id).then(function (response) {
                 $scope.editUnitId = id;
                 $scope.editUnit = response.data;
+                console.log($scope.editunit);
                 if ($scope.editUnit.coordinates) {
                     var coordinate = $scope.editUnit.coordinates;
                     coordinate = coordinate.replace("[", "");
@@ -105,7 +106,10 @@ angular.module('rocketscienceApp')
                     $scope.allParents = "";
                     break;
             }
+        };
 
+        $scope.findme = function() {
+            mapFactory.putSingleMarkerAsCurLocation();
         };
         $scope.$on("$destroy", function () {
             mapFactory.setEditControllerActive(false);
