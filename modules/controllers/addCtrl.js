@@ -52,8 +52,15 @@ angular.module('rocketscienceApp')
         function addOrgUnit () {
             console.log($scope.newOrgUnit);
              urlFactory.addOrgUnit($scope.newOrgUnit).then(function(success) {
-                 $.toaster({ priority : 'success', title : 'Success', message : success.data.message});
-                 showInSearch($scope.newOrgUnit.name);
+                 console.log(success);
+
+                 if (!success.data.response.importConflicts) {
+                     $.toaster({priority: 'success', title: 'Success', message: success.data.message});
+                     showInSearch($scope.newOrgUnit.name);
+                 } else {
+                     $.toaster({priority: 'danger', title: 'Import error', message: success.data.response.importConflicts[0].value});
+                 }
+
              }, function(error) {
                 $.toaster({ priority : 'danger', title : 'Error', message : error.message });
              });
