@@ -15,7 +15,7 @@
     <div class="form-group col-md-6">
         <label>Parent</label>
         <select ng-options="p.id as p.name for p in allParents" ng-model="editUnit.parent.id" ng-init="updateParents()"
-                class="form-control" ng-disabled="!allParents">
+                class="form-control" ng-disabled="allParents == ''">
         </select>
     </div>
 
@@ -74,7 +74,7 @@
     </div>
 
     <div class="form-group col-md-12">
-        <button class="form-control btn btn-default" ng-click="findme()">Get position</button>
+        <button class="form-control btn btn-primary" ng-click="findme()">Get position</button>
     </div>
 
     <h4>Contact Information</h4>
@@ -98,7 +98,7 @@
     </div>
 
     <div class="form-group col-md-12">
-        <button class="btn btn-primary" type="submit" name="edit_add" ng-click="editOrgUnit()"
+        <button class="btn btn-success" type="submit" name="edit_add" ng-click="editOrgUnit()"
                 ng-disabled="!editUnit.name || !editUnit.shortName || !editUnit.openingDate">Save Changes
         </button>
         <button class="btn btn-danger" type="submit" name="edit_delete" ng-click="deleteOrgUnit()">Delete Unit
