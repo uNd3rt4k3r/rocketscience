@@ -12,14 +12,14 @@ angular.module('rocketscienceApp', [
     $stateProvider
         .state('home', {
             url: '/',
-            templateUrl: '../views/home.html',
+            templateUrl: 'views/home.html',
             controller: 'mainCtrl'
         })
         .state('home.search', {
             url: 'search',
             views: {
                 'action': {
-                    templateUrl: '../views/search.html',
+                    templateUrl: 'views/search.html',
                     controller: 'searchCtrl'
                 }
             },
@@ -31,7 +31,7 @@ angular.module('rocketscienceApp', [
             url: 'add',
             views: {
                 'action': {
-                    templateUrl: '../views/add.html',
+                    templateUrl: 'views/add.html',
                     controller: 'addCtrl'
                 }
             },
@@ -43,7 +43,7 @@ angular.module('rocketscienceApp', [
             url: 'edit',
             views: {
                 'action': {
-                    templateUrl: '../views/edit.html',
+                    templateUrl: 'views/edit.html',
                     controller: 'editCtrl'
                 }
             },
