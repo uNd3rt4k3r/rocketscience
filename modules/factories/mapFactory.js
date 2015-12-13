@@ -128,8 +128,8 @@ angular.module('rocketscienceApp')
         var markerOldLng; //remembers old possision of a draged marker
         var markerOldLat;
 
+        //DEPRECATED
         factoryHandler.showAllOrgUnits = function() {
-            //TODO: get all not just 1st page
             urlFactory.getOrgUnitOnPageNumber(1).then( function (response) {
                 var allOrgUnits = response.data;
 
